@@ -1,0 +1,158 @@
+﻿@model FinalProject.Models.News
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "افزودن اطلاعیه";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card bg-dark">
+    <div class="card-header text-white">
+        ثبت اطلاعیه
+    </div>
+    <div class="card-body">
+        <form asp-action="AddBook" role="form" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="NewsTitle" class="text-white"></label>
+                    <input asp-for="NewsTitle" class="form-control" />
+                    <span asp-validation-for="NewsTitle" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="NewsDate" class="control-label text-white"></label>
+                    <div>
+                        <input asp-for="NewsDate" value="@ViewBag.pdate" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="NewsImage" class="control-label text-white"></label>
+                    <div>
+                        <input type="file" id="files" name="file" class="btn btn-outline-secondary" multiple />
+                    </div>
+                    @if (Model.NewsId != 0)
+                    {
+                        <input type="hidden" name="ImgName" value="@Model.NewsImage" />
+                    }
+                </div>
+
+                <div class="form-group d-none col-md-6">
+                    <label asp-for="NewsId"></label>
+                    <div>
+                        <input asp-for="NewsId" class="form-control" type="hidden" />
+                    </div>
+                </div>
+            </div>
+            <!--Bottom/Editor-->
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label asp-for="NewsContent" class="control-label text-white"></label>
+                    <div>
+                        <textarea id="NewsContent" name="NewsContent" asp-for="NewsContent" class="form-control"></textarea>
+                        <span asp-validation-for="NewsContent" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="justify-content-center text-center">
+                @if (Model.NewsId == 0)
+                {
+                    <div class="btn-group">
+
+                        <button type="submit" class="btn btn-outline-success" id="submitData">
+                            ثبت خبر
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="btn-group">
+
+                        <button type="submit" class="btn btn-outline-success" id="submitData">
+                            ویرایش خبر
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                }
+                <div class="btn-group">
+                    <a class="btn btn-outline-secondary" asp-action="Index">
+                        بازگشت
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section scripts
+    {
+    <script src="~/js/ckeditor/ckeditor.js"></script>
+    <script src="~/js/adminpanel.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace("NewsContent");
+    </script>
+
+    <script>
+        $(document).on('click', '#submitData', function (evt) {
+            evt.preventDefault();
+
+            var data = new FormData();
+
+            //دریافت مقادیر فایل آپلودی
+            var fileUpload = $('#files').get(0);
+            var files = fileUpload.files;
+            for (var i = 0; i < files.length; i++) {
+                data.append('files', files[i]);
+            }
+
+            //دریافت مقادیر موجود
+            $('input,select').each(function (x, y) {
+                data.append($(y).attr('name'), $(y).val());
+            });
+
+            //دریافت مقادیر ادیتور
+            var editorValue = CKEDITOR.instances['NewsContent'].getData();
+            data.append('NewsContent', editorValue);
+
+            //ارسال به سمت سرور
+            $.ajax({
+                type: "post",
+                url:'@Url.Action("AddEdit","News",new { area = "Admin" })',
+                contentType: false,
+                processData: false,
+                data: data
+                //وقتی اطلاعات سمت سرور رفت و جواب گرفتیم
+            }).done(function (res) {
+                    if (res.status === "success") {
+                        swal({
+                            title: "اطلاعیه",
+                            text: res.message,
+                            icon: "success",
+                            button: "ادامه"
+                        })
+                            .then((a) => {
+                                if (a) {
+                                    window.location.href = '@Url.Action("Index", "News")';
+                                }
+                            });              
+                    }
+                    else {
+                        $.each(res.error, function (a, b) {
+                            alert(b);
+                        });
+                    }
+                    //برای وقتی که اطلاعات سمت سرور نرفت و در همان ابتدا خطا داد
+                }).fail(function (xhr, b, error) {
+                    swal("Oops", error, "error");
+                })
+        });
+    </script>
+}

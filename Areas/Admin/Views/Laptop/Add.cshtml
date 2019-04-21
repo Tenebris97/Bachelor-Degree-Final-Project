@@ -1,0 +1,342 @@
+﻿@model FinalProject.Models.LaptopAddEdit
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "ثبت کالا";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">خانه</a></li>
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Admin" asp-action="Index"> پنل ادمین</a></li>
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Laptop" asp-action="Index"> جزییات لپ‌تاپ</a></li>
+    <li class="breadcrumb-item active"> افزودن جزئیات</li>
+</ol>
+
+<div class="card bg-dark">
+    <div class="card-header text-white">
+        ثبت جزئیات لپ‌تاپ
+    </div>
+    <div class="card-body">
+        <form asp-action="Add" role="form" asp-controller="Laptop" method="post" class="text-white">
+            <div class="form-group d-none col-md-6">
+                <label asp-for="LaptopId"></label>
+                <div>
+                    <input asp-for="LaptopId" class="form-control" type="hidden" />
+                </div>
+            </div>
+
+            <h5 class="addformH">انتخاب لپ‌تاپ</h5>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="ProductId"></label>
+                    <select asp-for="ProductId" asp-items="@Model.Products" class="form-control"></select>
+                </div>
+            </div>
+            <hr id="AddformHr" />
+
+            <h5 class="addformH">مشخصات فیزیکی</h5>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Size"></label>
+                    <input asp-for="Size" class="form-control" />
+                    <span asp-validation-for="Size" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Weight"></label>
+                    <input asp-for="Weight" class="form-control" />
+                    <span asp-validation-for="Weight" class="text-danger"></span>
+                </div>
+            </div>
+            <hr id="AddformHr" />
+
+            <h5 class="addformH">پردازنده مرکزی</h5>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="CpuManufactor"></label>
+                    <input asp-for="CpuManufactor" class="form-control" />
+                    <span asp-validation-for="CpuManufactor" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="CpuSeries"></label>
+                    <input asp-for="CpuSeries" class="form-control" />
+                    <span asp-validation-for="CpuSeries" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="CpuType"></label>
+                    <input asp-for="CpuType" class="form-control" />
+                    <span asp-validation-for="CpuType" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="CpuFrequency"></label>
+                    <input asp-for="CpuFrequency" class="form-control" />
+                    <span asp-validation-for="CpuFrequency" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="CpuCache"></label>
+                    <input asp-for="CpuCache" class="form-control" />
+                    <span asp-validation-for="CpuCache" class="text-danger"></span>
+                </div>
+            </div>
+            <hr id="AddformHr" />
+
+            <h5 class="addformH">حافظه RAM</h5>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="RAM"></label>
+                    <input asp-for="RAM" class="form-control" />
+                    <span asp-validation-for="RAM" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="RAMType"></label>
+                    <input asp-for="RAMType" class="form-control" />
+                    <span asp-validation-for="RAMType" class="text-danger"></span>
+                </div>
+            </div>
+            <hr id="AddformHr" />
+
+            <h5 class="addformH">حافظه داخلی</h5>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Storage"></label>
+                    <input asp-for="Storage" class="form-control" />
+                    <span asp-validation-for="Storage" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="StorageType"></label>
+                    <input asp-for="StorageType" class="form-control" />
+                    <span asp-validation-for="StorageType" class="text-danger"></span>
+                </div>
+            </div>
+            <hr id="AddformHr" />
+
+            <h5 class="addformH">پردازنده گرافیکی</h5>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="GPUManufactor"></label>
+                    <input asp-for="GPUManufactor" class="form-control" />
+                    <span asp-validation-for="GPUManufactor" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="GPUModel"></label>
+                    <input asp-for="GPUModel" class="form-control" />
+                    <span asp-validation-for="GPUModel" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="GPUSize"></label>
+                    <input asp-for="GPUSize" class="form-control" />
+                    <span asp-validation-for="GPUSize" class="text-danger"></span>
+                </div>
+            </div>
+            <hr id="AddformHr" />
+
+            <h5 class="addformH">صفحه نمایش</h5>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="ScreenSize"></label>
+                    <input asp-for="ScreenSize" class="form-control" />
+                    <span asp-validation-for="ScreenSize" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="ScreenTechnology"></label>
+                    <input asp-for="ScreenTechnology" class="form-control" />
+                    <span asp-validation-for="ScreenTechnology" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="ScreenType"></label>
+                    <input asp-for="ScreenType" class="form-control" />
+                    <span asp-validation-for="ScreenType" class="text-danger"></span>
+                </div>
+            </div>
+            <hr id="AddformHr" />
+
+            <h5 class="addformH">امکانات و سایر ‌مشخصات</h5>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="ODD"></label>
+                    <input asp-for="ODD" class="form-control" />
+                    <span asp-validation-for="ODD" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Webcam"></label>
+                    <input asp-for="Webcam" class="form-control" />
+                    <span asp-validation-for="Webcam" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Speaker"></label>
+                    <input asp-for="Speaker" class="form-control" />
+                    <span asp-validation-for="Speaker" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Modem"></label>
+                    <input asp-for="Modem" class="form-control" />
+                    <span asp-validation-for="Modem" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Wifi"></label>
+                    <input asp-for="Wifi" class="form-control" />
+                    <span asp-validation-for="Wifi" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="VGA"></label>
+                    <input asp-for="VGA" class="form-control" />
+                    <span asp-validation-for="VGA" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="HDMI"></label>
+                    <input asp-for="HDMI" class="form-control" />
+                    <span asp-validation-for="HDMI" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="USB2"></label>
+                    <input asp-for="USB2" class="form-control" />
+                    <span asp-validation-for="USB2" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="USB3"></label>
+                    <input asp-for="USB3" class="form-control" />
+                    <span asp-validation-for="USB3" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Bluetooth"></label>
+                    <input asp-for="Bluetooth" class="form-control" />
+                    <span asp-validation-for="Bluetooth" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="BatteryType"></label>
+                    <input asp-for="BatteryType" class="form-control" />
+                    <span asp-validation-for="BatteryType" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="OS"></label>
+                    <input asp-for="OS" class="form-control" />
+                    <span asp-validation-for="OS" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="OSVersion"></label>
+                    <input asp-for="OSVersion" class="form-control" />
+                    <span asp-validation-for="OSVersion" class="text-danger"></span>
+                </div>
+            </div>
+            <hr id="AddformHr" />
+
+            <h5 class="addformH">نقد و بررسی و امتیازدهی</h5>
+            <!--Editor-->
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label asp-for="Description" class="control-label"></label>
+                    <div>
+                        <textarea id="Description" name="Description" asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="justify-content-center text-center">
+                @if (Model.LaptopId == 0)
+                {
+                    <div class="btn-group">
+
+                        <button type="submit" class="btn btn-outline-success" id="submitData">
+                            ثبت لپ‌تاپ
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="btn-group">
+
+                        <button type="submit" class="btn btn-outline-success" id="submitData">
+                            ویرایش لپ‌تاپ
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                }
+                <div class="btn-group">
+                    <a class="btn btn-outline-secondary" asp-action="Index">
+                        بازگشت
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+            <input type="hidden" name="redirectUrl" value="@Url.Action("Index", "Laptop")" />
+        </form>
+    </div>
+</div>
+@section scripts
+    {
+    <script src="~/js/ckeditor/ckeditor.js"></script>
+    <script src="~/js/adminpanel.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace("Description");
+    </script>
+
+    <script>
+        $(document).on('click', '#submitData', function (evt) {
+            evt.preventDefault();
+
+            var data = new FormData();
+
+            //دریافت مقادیر موجود
+            $('input,select').each(function (x, y) {
+                data.append($(y).attr('name'), $(y).val());
+            });
+
+            //دریافت مقادیر ادیتور
+            var editorValue = CKEDITOR.instances['Description'].getData();
+            data.append('Description', editorValue);
+
+            //ارسال به سمت سرور
+            $.ajax({
+                type: "post",
+                url:'@Url.Action("Add","Laptop",new { area = "Admin" })',
+                contentType: false,
+                processData: false,
+                data: data
+                //وقتی اطلاعات سمت سرور رفت و جواب گرفتیم
+            }).done(function (res) {
+                    if (res.status === "success") {
+                        swal({
+                            title: "لپ‌تاپ",
+                            text: res.message,
+                            icon: "success",
+                            button: "ادامه"
+                        })
+                            .then((a) => {
+                                if (a) {
+                                    window.location.href = '@Url.Action("Index", "Laptop")';
+                                }
+                            });              
+                    }
+                    else {
+                        $.each(res.error, function (a, b) {
+                            alert(b);
+                        });
+                    }
+                    //برای وقتی که اطلاعات سمت سرور نرفت و در همان ابتدا خطا داد
+                }).fail(function (xhr, b, error) {
+                    swal("Oops", error, "error");
+                })
+        });
+    </script>
+}

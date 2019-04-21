@@ -1,0 +1,28 @@
+﻿@model IEnumerable<FinalProject.Models.ViewModels.PromotionListViewModel>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+
+
+<div class="News">
+
+    <h5 style="margin-top: 10px;">پیشنهاد شگفت‌انگیز</h5>
+    <div id="mainHr"></div>
+    <div>
+        <div class="owl-carousel owl-theme justify-content-center" id="owl-promotion">
+            @foreach (var item in Model)
+            {
+                <div style="margin:5px;" class="text-center justify-content-center">
+                    <!--target="_blank" moghe click kardan miad ye tab-e jadid baz mikone-->
+                    <a class="justify-content-center text-center" asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId" target="_blank">
+                        <img  src="@ViewBag.imagepath@item.ProductImage" />
+                        <hr class="hrImage" />
+                        <span class="center-block">@item.ProductName</span>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,79 @@
+﻿
+@model IEnumerable<FinalProject.Models.ViewModels.OrderDetailListViewModel>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "جزئیات سفارش";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">خانه</a></li>
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Admin" asp-action="Index"> پنل کاربری</a></li>
+    <li class="breadcrumb-item active"> جزئیات سفارش</li>
+</ol>
+
+<div class="row">
+    @Html.Partial("_UserPanel")
+    <div class="col-md-9 col-sm-auto">
+        <div class="card bg-transparent">
+            <div class="card-header">
+                <h5>شماره سفارش: @Model.FirstOrDefault().OrderId</h5>
+            </div>
+            <div class="card-body">
+
+                <div>
+                    <p>تاریخ ثبت سفارش: @Model.FirstOrDefault().OrderDate</p>
+                </div>
+
+                <table class="table table-striped table-bordered table-hover table-light ">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">ردیف</th>
+                            <th class="text-center" scope="col">نام کالا</th>
+                            <th class="text-center" scope="col">قیمت کالا</th>
+                            <th class="text-center" scope="col">تخفیف</th>
+                            <th class="text-center" scope="col">قیمت نهایی</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int counter = 1;
+                            @foreach (var item in Model)
+                            {
+                        <tr>
+                            <td class="text-center">@(counter++)</td>
+                            <td class="text-center">@item.ProductName</td>
+                            <td class="text-center">@string.Format("{0:n0}", item.ProductPrice)</td>
+                            <td class="text-center">@string.Format("{0:n0}", item.Discount)</td>
+                            <td class="text-center">@string.Format("{0:n0}", item.ProductPrice - item.Discount)</td>
+                        </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <div>
+                    @if (Model.FirstOrDefault().Status == 1)
+                    {
+                        <p class="text-success font-weight-bold">وضعیت: پرداخت اینترنتی (پرداخت شده)</p>
+                    }
+                    @if (Model.FirstOrDefault().Status == 2)
+                    {
+                        <p class="text-warning font-weight-bold">وضعیت: پرداخت در محل</p>
+                    }
+                    @if (Model.FirstOrDefault().Status == 3)
+                    {
+                        <p class="text-danger font-weight-bold">وضعیت: لغو شده</p>
+                    }
+                    <p class="font-weight-bold">مجموع قابل پرداخت: @string.Format("{0:n0}", Model.FirstOrDefault().Price)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/js/adminpanel.js"></script>
+}

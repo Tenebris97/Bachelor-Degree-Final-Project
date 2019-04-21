@@ -1,0 +1,301 @@
+﻿@model FinalProject.Models.ViewModels.LaptopDetailViewModel
+
+@inject SignInManager<ApplicationUser> signInManager;
+@inject UserManager<ApplicationUser> userManager;
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+<ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">خانه</a></li>
+    <li class="breadcrumb-item"><a asp-area="" asp-controller="Product" asp-action="Index"> محصولات</a></li>
+    <li class="breadcrumb-item active"> @Html.DisplayFor(model => model.ProductName)</li>
+</ol>
+
+@{
+    var finalPrice = Model.ProductPrice - Model.ProductDiscount;
+    var pricePercent = 0.0;
+
+    if (Model.ProductDiscount != 0)
+    {
+        pricePercent = (Convert.ToDouble(Model.ProductDiscount) * 100) / Convert.ToDouble(Model.ProductPrice);
+
+    }
+    else
+    {
+        pricePercent = 0;
+    }
+}
+
+<div class="card">
+    <div class="row mt-4 mr-2 ml-2">
+
+        <!--4-->
+        <div class="col-md-4">
+            <img class="justify-content-end" src="@ViewBag.imagepath@Model.ProductImage" style="width: 400px; height:250px;">
+        </div>
+        <!--8-->
+        <div class="col-md-8">
+
+            <div>
+                <h5>
+                    @Html.DisplayFor(model => model.ProductName)
+                </h5>
+            </div>
+            <div>
+                <p>
+                    @Html.Raw(Model.ProductDescription)
+                </p>
+            </div>
+            <hr />
+
+            <div class="col-md-7 float-right pr-0">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <p style="font-size: 14px;">برند : @Html.DisplayFor(Model => Model.ProductBrand)</p>
+                        <p>رنگ : @Html.DisplayFor(Model => Model.ProductColor)</p>
+                        <p>آماده ارسال</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p style="font-size: 14px;">دسته‌بندی : @Html.DisplayFor(Model => Model.ProductBrand)</p>
+                    </div>
+                    <div class="col-md-12">
+                        <p><i class="fas fa-shield-alt"></i>  @Html.DisplayFor(Model => Model.ProductWarranty)</p>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-10">
+                        <div>
+                            @if (Model.ProductDiscount == 0)
+                            {
+                                <span style="font-size: 28px; color:red;">@string.Format("{0:n0}", Model.ProductPrice) تومان</span>
+                            }
+                            else
+                            {
+                                <p class="mb-0"><span style="text-decoration:line-through;">@string.Format("{0:n0}", Model.ProductPrice)</span></p>
+                                <span>
+                                    <span style="font-size: 28px; color:red;">@string.Format("{0:n0}", @finalPrice) تومان</span>
+                                    <span class="badge badge-pill badge-danger justify-content-end">@Math.Round(pricePercent) ٪ تخفیف</span>
+                                </span>
+                            }
+                        </div>
+
+
+                        <button id="btnAddToBasket" class="btn btn-success btn-lg mt-3">افزودن به سبد خرید</button>
+                        <span class="d-none" id="id">@Model.ProductId</span>
+                    </div>
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        <div class="col-md-2">
+                            <span class="col-md-offset-1"></span>
+                            <h4><a id="btnLike"><i class="fas fa-thumbs-up"></i></a></h4>
+                            <h4 class="text-center">
+                                <span id="likeCounter">@Model.ProductLikeCount</span>
+                            </h4>
+                            <h4> <a id="btnDislike"><i class="fas fa-thumbs-down"></i></a></h4>
+                            <span class="d-none" id="id">@Model.ProductId</span>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+            <div class="col-md-4 float-left">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="text-info">ویژگی‌های کلی محصول</h5>
+                        <div class="mb-1">
+                            @Html.DisplayFor(Model => Model.RAM)GB : RAM
+                        </div>
+                        <div class="mb-1">
+                            @Html.DisplayNameFor(Model => Model.Storage) : @Html.DisplayFor(Model => Model.Storage)
+                        </div>
+                        <div class="mb-1">
+                            @Html.DisplayNameFor(Model => Model.ScreenSize) : @Html.DisplayFor(Model => Model.ScreenSize)
+                        </div>
+                        <div class="mb-1">
+                            @Html.DisplayNameFor(Model => Model.GPUManufactor) : @Html.DisplayFor(Model => Model.GPUManufactor)
+                        </div>
+                        <div class="mb-1">
+                            @Html.DisplayNameFor(Model => Model.CpuSeries) : @Html.DisplayFor(Model => Model.CpuSeries)
+                        </div>
+                        <div class="mb-1">
+                            نوع حافظه : @Html.DisplayFor(Model => Model.RAMType)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="w-75 justify-content-center" />
+    </div>
+
+    <div class="card-body">
+
+        <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">نقد و بررسی</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">مشخصات</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">نظرات کاربران</a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div style="font-size:16px; margin-right: 20px; margin-left: 20px;" class="mt-4 align-items-center">
+                    @Html.Raw(Model.Description)
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div style="margin-right: 20px; margin-left: 20px;">
+                    <h3 class="mt-4">مشخصات فنی</h3>
+
+                    <p>
+                        @Html.Raw(Model.ProductDescription)
+                    </p>
+
+                    <h5 class="mt-4 text-info">مشخصات فیزیکی</h5>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.Size)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.Weight)</div>
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.Size)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.Weight)<span> کیلوگرم</span></div>
+                        </div>
+                    </div>
+
+                    <h5 class="mt-4 text-info">پردازنده مرکزی</h5>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.CpuManufactor)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.CpuSeries)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.CpuType)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.CpuFrequency)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.CpuCache)</div>
+                        </div>
+                        <div class="col-md-9  col-sm-9">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.CpuManufactor)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.CpuSeries)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.CpuType)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.CpuFrequency)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.CpuCache)MB</div>
+                        </div>
+                    </div>
+
+                    <h5 class="mt-4 text-info">حافظه RAM</h5>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.RAM)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.RAMType)</div>
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.RAM)<span>GB</span></div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.RAMType)</div>
+                        </div>
+                    </div>
+
+                    <h5 class="mt-4 text-info">حافظه داخلی</h5>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.Storage)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.StorageType)</div>
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.Storage)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.StorageType)</div>
+                        </div>
+                    </div>
+
+                    <h5 class="mt-4 text-info">پردازنده گرافیکی</h5>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.GPUManufactor)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.GPUModel)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.GPUSize)</div>
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.GPUManufactor)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.GPUModel)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.GPUSize)</div>
+                        </div>
+                    </div>
+
+                    <h5 class="mt-4 text-info">صفحه نمایش</h5>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.ScreenTechnology)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.ScreenType)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.ScreenSize)</div>
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.ScreenTechnology)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.ScreenType)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.ScreenSize)</div>
+                        </div>
+                    </div>
+
+                    <h5 class="mt-4 text-info">امکانات</h5>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.ODD)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.Webcam)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.Speaker)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.Modem)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.Wifi)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.Bluetooth)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.VGA)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.HDMI)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.USB2)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.USB3)</div>
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.ODD)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.Webcam)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.Speaker)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.Modem)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.Wifi)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.Bluetooth)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.VGA)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.HDMI)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.USB2) عدد</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.USB3) عدد</div>
+                        </div>
+                    </div>
+
+                    <h5 class="mt-4 text-info">سایر مشخصات</h5>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.BatteryType)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.OS)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayNameFor(Model => Model.OSVersion)</div>
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.BatteryType)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.OS)</div>
+                            <div class="mb-3 bg-col-product-header">@Html.DisplayFor(Model => Model.OSVersion)</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

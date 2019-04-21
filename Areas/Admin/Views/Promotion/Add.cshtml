@@ -1,0 +1,132 @@
+﻿@model FinalProject.Models.PromotionAddEdit
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "ثبت کالا";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css"
+      rel="stylesheet" />
+
+<ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">خانه</a></li>
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Admin" asp-action="Index"> پنل ادمین</a></li>
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Laptop" asp-action="Index"> جزییات لپ‌تاپ</a></li>
+    <li class="breadcrumb-item active"> افزودن پیشنهاد شگفت‌انگیز</li>
+</ol>
+
+<div class="row">
+    @Html.Partial("_AdminPanel")
+
+    <div class="card bg-dark h-50">
+        <div class="card-header text-white">
+            ثبت جزئیات لپ‌تاپ
+        </div>
+        <div class="card-body ">
+            <form asp-action="Add" role="form" asp-controller="Promotion" method="post" class="text-white">
+                <div class="form-group d-none">
+                    <label asp-for="PromotionId"></label>
+                    <div>
+                        <input asp-for="PromotionId" class="form-control" type="hidden" />
+                    </div>
+                </div>
+
+                <h5 class="addformH">انتخاب کالا</h5>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label asp-for="ProductId"></label>
+                        <select asp-for="ProductId" asp-items="@Model.Products" class="form-control"></select>
+                    </div>
+                </div>
+                <hr id="AddformHr" />
+
+                <div class="justify-content-center text-center">
+                    @if (Model.PromotionId == 0)
+                    {
+                        <div class="btn-group">
+
+                            <button type="submit" class="btn btn-outline-success" id="submitData">
+                                ثبت پیشنهاد شگفت‌انگیز
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="btn-group">
+
+                            <button type="submit" class="btn btn-outline-success" id="submitData">
+                                ویرایش پیشنهاد شگفت‌انگیز
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </div>
+                    }
+                    <div class="btn-group">
+                        <a class="btn btn-outline-secondary" asp-action="Index">
+                            بازگشت
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                </div>
+                <input type="hidden" name="redirectUrl" value="@Url.Action("Index", "Promotion")" />
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts
+    {
+    <script src="~/js/ckeditor/ckeditor.js"></script>
+    <script src="~/js/adminpanel.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"
+            type="text/javascript"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $(document).on('click', '#submitData', function (evt) {
+            evt.preventDefault();
+
+            var data = new FormData();
+
+            //دریافت مقادیر موجود
+            $('input,select').each(function (x, y) {
+                data.append($(y).attr('name'), $(y).val());
+            });
+
+            //ارسال به سمت سرور
+            $.ajax({
+                type: "post",
+                url:'@Url.Action("Add", "Promotion", new { area = "Admin" })',
+                contentType: false,
+                processData: false,
+                data: data
+                //وقتی اطلاعات سمت سرور رفت و جواب گرفتیم
+            }).done(function (res) {
+                    if (res.status === "success") {
+                        swal({
+                            title: "پیشنهاد شگفت‌انگیز",
+                            text: res.message,
+                            icon: "success",
+                            button: "ادامه"
+                        })
+                            .then((a) => {
+                                if (a) {
+                                    window.location.href = '@Url.Action("Index", "Promotion")';
+                                }
+                            });                                           
+                    }
+                    else {
+                        $.each(res.error, function (a, b) {
+                            alert(b);
+                        });
+                    }
+                    //برای وقتی که اطلاعات سمت سرور نرفت و در همان ابتدا خطا داد
+                }).fail(function (xhr, b, error) {
+                    alert(error);
+                })
+        });
+    </script>
+}

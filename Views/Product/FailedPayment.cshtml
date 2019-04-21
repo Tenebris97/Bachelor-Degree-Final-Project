@@ -1,0 +1,23 @@
+﻿
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "FailedPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-9">
+    <div class="panel panel-danger">
+        <div class="panel-heading">عملیات ناموفق</div>
+        <div class="panel-body form-horizontal">
+            <div style="font-size: 16px; text-align:center;">
+                عملیات پرداخت ناموفق بود. درصورتی که مبلغی کم شده ظرف مدت 72 ساعت به حساب شما برگشت داده خواهد شد.
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/js/adminpanel.js"></script>
+}

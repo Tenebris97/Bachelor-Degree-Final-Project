@@ -1,0 +1,52 @@
+﻿@model FinalProject.Models.Category
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, LibraryProject
+
+@{
+    ViewData["Title"] = "ثبت دسته‌بندی";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="AddEdit" role="form" asp-controller="Category" method="post">
+    <!--Right Group-->
+    <div class="form-row">
+        <!--Fullname-->
+        <div class="form-group col-md-6">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <!--LastName-->
+    <div class="form-row">
+        <div class="form-group  col-md-6">
+            <label asp-for="Description"></label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group d-none">
+        <label asp-for="CategoryId"></label>
+        <div class="col-lg-6">
+            <input asp-for="CategoryId" class="form-control" />
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <button type="submit" class="btn btn-outline-success">
+            ثبت
+            <i class="fas fa-check"></i>
+        </button>
+    </div>
+    <div class="btn-group">
+        <a class="btn btn-outline-secondary" asp-action="Index">
+            بازگشت
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+
+    <input type="hidden" name="redirectUrl" value="@Url.Action("Index", "Category")" />
+</form>

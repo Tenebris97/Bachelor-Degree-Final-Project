@@ -1,0 +1,184 @@
+﻿@model FinalProject.Models.MultiModels
+@using Microsoft.AspNetCore.Identity
+@using FinalProject.Models
+
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpCookie
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "سبد خرید";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section searchSection{
+    <form class="navbar-nav navbar-left mt-3 ml-3">
+        <div class="form-group form-inline">
+            <input type="text" id="txtSearch" name="txtSearch" class="form-control" placeholder="جستجو" />
+            <button asp-controller="Home" asp-action="Search" class="btn btn-default ml-2">جستجو  <i class="fas fa-search"></i></button>
+        </div>
+    </form>
+}
+
+@section basket{
+    @Html.Partial("_Basket")
+}
+
+<div id="mainDiv">
+
+    @if (HttpCookie.HttpContext.Request.Cookies["ATB"] != null)
+    {
+        @if (Model.SearchedProduct.Count() > 0)
+        {
+    <div id="right-panel-basket" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left justify-content-center">
+        <div style="color: green; font-size: 20px;
+            text-align: center; margin-top:10px; margin-bottom: 10px;">سبد خرید</div>
+        <table class="table table table-hover table-success table-striped table-responsive table-condensed text-center">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th class="text-center">ردیف</th>
+                    <th class="col-md-4 text-center">نام کالا</th>
+                    <th class="col-md-4 text-center">قیمت</th>
+                    <th class="col-md-4 text-center">تخفیف</th>
+                    <th class="col-md-3 text-center">عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int counter = 1;
+                    string productId = null;
+                    int totalDiscount = 0;
+                    @foreach (var item in Model.SearchedProduct)
+                    {
+                        <tr>
+                            <td>@(counter++)</td>
+                            <td>@item.ProductName</td>
+                            <td>@string.Format("{0:n0}", item.ProductPrice)  تومان</td>
+                            <td>@string.Format("{0:n0}", item.ProductDiscount)  تومان</td>
+                            <td>
+                                <a asp-controller="Product" asp-action="DeleteRequestedProduct" asp-route-id="@item.ProductId" class="btn btn-danger">حذف</a>
+                            </td>
+                        </tr>
+                        productId += item.ProductId + ",";
+                        totalDiscount += item.ProductDiscount;
+                    }
+                    int totalPrice = Model.SearchedProduct.Sum(a => a.ProductPrice);
+                    int finalPrice = totalPrice - totalDiscount;
+                }
+            </tbody>
+        </table>
+        @{
+
+            <span class="d-none" id="totalprice">@finalPrice</span>
+        }
+        <hr style="border: 1px solid gray;" />
+        <table class="table table-hover table-success table-bordered table-striped table-condensed text-center">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th class="col-md-3 text-center">مجموع</th>
+                    <th class="col-md-3 text-center">مجموع تخفیف</th>
+                    <th class="col-md-6 text-center">مجموع قابل پرداخت</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><h5>@string.Format("{0:n0}", totalPrice)  تومان</h5></td>
+                    <td><h5>@string.Format("{0:n0}", totalDiscount)  تومان</h5></td>
+                    <td><h4 class="text-danger">@string.Format("{0:n0}", finalPrice) تومان</h4></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr style="border: 1px solid gray;" />
+
+        <div class="form-group">
+            <label style="font-size: 20px;">آدرس</label>
+            @if (Model.Address == null)
+            {
+                <p>آدرسی یافت نشد. لطفا آدرس خود را از طریق <a asp-area="User" asp-controller="Address" asp-action="Add">پنل کاربری</a> اضافه کنید</p>
+            }
+            else
+            {
+                <p>@Model.Address.FullAddress</p>
+            }
+        </div>
+
+        <hr style="border: 1px solid gray;" />
+
+        @if (Model.Address != null)
+        {
+        <div style="text-align: center; margin-top: 40px;">
+            <form asp-controller="Product" asp-action="Payment" method="post" style="text-align:center;">
+                @{
+                    ApplicationUser user = new ApplicationUser();
+                    user = await userManager.GetUserAsync(User);
+                }
+                <input asp-for="Transaction.Amount" class="form-control d-none" value="@finalPrice" hidden />
+                <input asp-for="Transaction.Description" class="form-control d-none" value="@productId" hidden />
+                <input asp-for="Transaction.Email" class="form-control d-none" value="@user.Email" hidden />
+                <input asp-for="CurrentUser.PhoneNumber" class="form-control d-none" value="@user.PhoneNumber" hidden />
+                <div class="form-group text-center">
+                    <a id="btnSubmitOrder" class="btn btn-success">پرداخت در محل</a>
+                    <button type="submit" class="btn btn-success">پرداخت اینترنتی</button>
+                </div>
+            </form>
+
+            <div class="form-group">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-warning" style="width: 120px;">بازگشت</a>
+            </div>
+
+        </div>
+        }
+
+    </div>
+        }
+
+        else
+        {
+            <div style="font-size: 22px; text-align: center; color: red;">شما هیچ کالایی انتخاب نکرده‌اید</div>
+        }
+    }
+    else
+    {
+        <div style="font-size: 22px; text-align: center; color: red;">شما هیچ کالایی انتخاب نکرده‌اید</div>
+    }
+</div>
+
+<span class="d-none" id="userId" hidden>@userManager.GetUserId(User)</span>
+@section scripts{
+    <script>
+        $('#btnSubmitOrder').on("click", function () {
+            var userId = $('#userId').text();
+            var tp = $('#totalprice').text();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Order", "Product")',
+                data: { 'userId': userId, 'tp': tp }
+            }).done(function (res) {
+                    if (res.status === "success") {
+                        swal({
+                            title: "سفارش موفق",
+                            text: res.message,
+                            icon: "success",
+                            button: "ادامه"
+                        })
+                            .then((a) => {
+                                if (a) {
+                                    window.location.href = '@Url.Action("Index", "Orders", new { Area = "User"})';
+                                }
+                            });
+                    }
+                    else {
+                        $.each(res.error, function (a, b) {
+                            alert(b);
+                        });
+                    }
+                    //برای وقتی که اطلاعات سمت سرور نرفت و در همان ابتدا خطا داد
+                }).fail(function (xhr, b, error) {
+                    swal("Oops", error, "error");
+                })
+        });
+    </script>
+}

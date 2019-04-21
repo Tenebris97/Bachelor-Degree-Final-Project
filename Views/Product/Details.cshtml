@@ -1,0 +1,92 @@
+﻿@model FinalProject.Models.MultiModels
+@using Microsoft.AspNetCore.Identity
+@using FinalProject.Models
+
+@inject SignInManager<ApplicationUser> signInManager;
+@inject UserManager<ApplicationUser> userManager;
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+
+@{
+    ViewData["Title"] = Model.Product.ProductName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section searchSection{
+    <form class="navbar-nav navbar-left mt-3 ml-3">
+        <div class="form-group form-inline">
+            <input type="text" id="txtSearch" name="txtSearch" class="form-control" placeholder="جستجو" />
+            <button asp-controller="Home" asp-action="Search" class="btn btn-default ml-2">جستجو  <i class="fas fa-search"></i></button>
+        </div>
+    </form>
+}
+
+
+<div class="row justify-content-center">
+    <div id="productDetails" class="col-md-10">
+        @if (Model.CellphoneDetailViewModel == null)
+        {
+            @Html.Partial("_LaptopDetails", Model.LaptopDetailViewModel)
+        }
+        else
+        {
+            @Html.Partial("_CellphoneDetails", Model.CellphoneDetailViewModel)
+        }
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        //Like
+        $('#btnLike').on("click", function () {
+            var post_data = $('#id').text();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Like", "Product")',
+                data: { 'id': post_data },
+                success: function (msg) {
+                    if (msg.status === 'success') {
+                        swal("ثبت نظر", msg.message, "success");
+                        $('#likeCounter').text(msg.result);
+                    }
+                }
+            });
+        });
+
+        //Dislike
+        $('#btnDislike').on("click", function () {
+            var post_data = $('#id').text();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Dislike", "Product")',
+                data: { 'id': post_data },
+                success: function (msg) {
+                    if (msg.status === 'success') {
+                        swal("ثبت نظر",msg.message,"success");
+                        $('#likeCounter').text(msg.result);
+                    }
+                }
+            });
+        });
+
+        $('#btnAddToBasket').on("click", function () {
+            var post_data = $('#id').text();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddToBasket", "Product")',
+                data: { 'id': post_data },
+                success: function (msg) {
+                    if (msg.status === 'success') {
+                        swal("افزودن به سبد خرید", msg.message, "success");
+                        $('#requestCount').text(msg.basketCount);
+                    }
+                    else {
+                        swal("خطا", msg.message, "error");
+                    }
+                }
+            });
+        });
+    </script>
+}

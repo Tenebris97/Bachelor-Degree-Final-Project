@@ -1,0 +1,158 @@
+﻿@font-face {
+    font-family: 'yekan';
+    font-weight: normal;
+    font-style: normal;
+    src: url('../fonts/yekan/Yekan.eot') format('embedded-opentype'), url('../fonts/yekan/Yekan.woff') format('woff'), url('../fonts/yekan/Yekan.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'samim-fd';
+    src: url('../fonts/samim-font-v2.0.1/farsi-digits/samim-fd.eot') format('embedded-opentype'), url('../fonts/samim-font-v2.0.1/farsi-digits/samim-fd.ttf') format('truetype'), url('../fonts/samim-font-v2.0.1/farsi-digits/samim-fd.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'vazir-fd';
+    src: url('../fonts/vazir-font-v18.0.0/farsi-digits/vazir-fd.eot') format('embedded-opentype'), url('../fonts/vazir-font-v18.0.0/farsi-digits/vazir-fd.ttf') format('truetype'), url('../fonts/vazir-font-v18.0.0/farsi-digits/vazir-fd.woff') format('woff');
+}
+
+body {
+    font-family: vazir-fd !important;
+    background-color: #d1d8e0 !important;
+}
+.marginButton{
+    margin-bottom:10px;
+}
+
+.marginSearch {
+    margin-top: 10px !important;
+    margin-bottom: 0 !important;
+}
+
+/*Navbar*/
+#NavbraDefault {
+    border-bottom: 4px solid #fffdd0 !important;
+}
+
+#AddformHr {
+    border-bottom: 2px solid #17a2b8 !important;
+}
+
+#productHr {
+    border-bottom: 1px solid #17a2b8 !important;
+}
+
+#productHrB {
+    border-bottom: 1px solid #17a2b8 !important;
+}
+
+#defaultHr {
+    margin: 0 0 10px 0;
+    border: 1px solid #17a2b8;
+}
+
+#mainHr {
+    border: 2px double #343a40;
+    margin-bottom: 10px;
+}
+
+#tv {
+    background: white;
+    border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
+    color: white;
+    box-shadow: 10px 10px rgba(0,0,0,.15);
+    transition: all .4s ease;
+}
+
+    #tv:hover {
+        border-radius: 0% 0% 50% 50% / 0% 0% 5% 5%;
+        box-shadow: 5px 5px rgba(0,0,0,.25);
+    }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+
+.spanNews {
+    margin-right: 10px;
+    color: black;
+}
+
+#news-a {
+    text-decoration: none;
+
+}
+
+.NewsDiv {
+    margin-bottom: 10px !important;
+}
+
+.News {
+    background: rgba(255,255,255,0.5);
+    border: 1px ridge #17a2b8;
+    padding: 15px;
+}
+
+.addformH {
+    color: #fffdd0;
+}
+
+.bg-col-product-header {
+    padding: 10px;
+    background-color: #f7f7f7;
+}
+
+#userCount {
+    background-color: #1abc9c;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+#productCount {
+    background-color: #1abc9c;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+#laptopCount {
+    background-color: #1abc9c;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+#cellphoneCount {
+    background-color: #1abc9c;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+#owl-promotion {
+    direction: ltr !important;
+    padding: 30px;
+
+}
+
+    #owl-promotion img {
+        width: 200px;
+        height: 200px;
+        margin-left: 55px;
+        box-shadow: 2px 2px 5px 1px black;
+        margin-bottom: 7px;
+    }
+
+    #owl-promotion a {
+        color: black;
+        text-align: center;
+    }
+
+        #owl-promotion a:hover {
+            color: blue;
+        }
+
+#btnLike{
+    cursor: pointer;
+}
+
+#btnDislike {
+    cursor: pointer;
+}

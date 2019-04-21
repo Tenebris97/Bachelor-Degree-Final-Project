@@ -1,0 +1,21 @@
+﻿@model IEnumerable<FinalProject.Models.News>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+<div class="News">
+    <h5 style="margin-top: 10px;">آخرین اطلاعیه‌ها</h5>
+    <div id="mainHr"></div>
+    <div>
+        @foreach (var item in Model)
+        {
+            <div class="NewsDiv">
+                <a id="news-a" asp-controller="News" asp-action="Index" asp-route-id="@item.NewsId" target="_blank">
+                    <img src="@ViewBag.imagepath@item.NewsImage" style="width:50px; height:50px;" />
+                    <span class="spanNews">@item.NewsTitle</span>
+                </a>
+            </div>
+            <div id="defaultHr"></div>
+        }
+    </div>
+</div>

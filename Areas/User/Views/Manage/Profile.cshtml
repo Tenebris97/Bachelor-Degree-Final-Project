@@ -1,0 +1,110 @@
+﻿@model FinalProject.Models.ManageViewModels.IndexViewModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "پروفایل";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @Html.Partial("_UserPanel")
+    <div class="col-md-5" style="margin-right: 20%;">
+        @Html.Partial("_StatusMessage", Model.StatusMessage)
+        <h4>@ViewData["Title"]</h4>
+        <hr />
+        <form method="post" asp-controller="Manage" asp-action="Profile">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Firstname"></label>
+                    <input asp-for="Firstname" class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Lastname"></label>
+                    <input asp-for="Lastname" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="PhoneNumber"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="MobileNumber"></label>
+                    <input asp-for="MobileNumber" class="form-control" />
+                    <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="NationalCode"></label>
+                    <input asp-for="NationalCode" class="form-control" />
+                    <span asp-validation-for="NationalCode" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Gender"></label>
+                    <select asp-for="Gender" class="form-control">
+                        @if (Model.Gender == 1)
+                        {
+                            <option value="1" selected="selected">آقا</option>
+                            <option value="2">خانم</option>
+                        }
+                        else if (Model.Gender == 2)
+                        {
+                            <option value="1">آقا</option>
+                            <option value="2" selected="selected">خانم</option>
+                        }
+                        else
+                        {
+                            <option value="1">آقا</option>
+                            <option value="2">خانم</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Birthdate"></label>
+                    <input asp-for="Birthdate" class="form-control" />
+                    <span asp-validation-for="Birthdate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Username"></label>
+                    <input asp-for="Username" class="form-control" disabled />
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Email"></label>
+                    @if (Model.IsEmailConfirmed)
+                    {
+                        <div class="input-group">
+                            <input asp-for="Email" class="form-control" />
+                            <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <input asp-for="Email" class="form-control" />
+                        <button asp-action="SendVerificationEmail" class="btn btn-link">تایید حساب کاربری</button>
+                    }
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default">ذخیره</button>
+        </form>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/js/adminpanel.js"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+

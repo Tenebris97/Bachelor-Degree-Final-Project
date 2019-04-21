@@ -1,0 +1,86 @@
+﻿
+@model ReflectionIT.Mvc.Paging.PagingList<FinalProject.Models.ViewModels.UserListViewModel>
+@using ReflectionIT.Mvc.Paging;
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">خانه</a></li>
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Admin" asp-action="Index"> پنل ادمین</a></li>
+    <li class="breadcrumb-item active"> مدیریت کاربران</li>
+</ol>
+
+<div class="row">
+    @Html.Partial("_AdminPanel")
+
+    <div class="col-md-9 col-sm-auto">
+        <div class="card bg-info">
+            <div class="card-header text-white">
+                <h5>لیست کاربران</h5>
+                <div>
+                    <form method="post" asp-controller="ManageUsers" asp-action="Search">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <input type="text" id="categorySearch" name="categorySearch" class="form-control" placeholder="جستجوی ‌نام کاربر..." />
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-dark" type="submit">
+                                    جستجو
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="btn-group">
+                    <a class="btn btn-dark marginButton" asp-action="Add">
+                        <i class="fas fa-plus"></i>
+                        افزودن کاربر جدید
+                    </a>
+                </div>
+                <table class="table table-striped table-bordered table-hover table-dark ">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">نام و نام خانوادگی</th>
+                            <th class="text-center" scope="col">ایمیل</th>
+                            <th class="text-center" scope="col">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td class="text-center">@item.FullName</td>
+                            <td class="text-center">@item.Email</td>
+                            <td class="text-center">
+                                <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                <nav>
+                    @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/js/adminpanel.js"></script>
+}

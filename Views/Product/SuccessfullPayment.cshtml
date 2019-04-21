@@ -1,0 +1,44 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "پرداخت موفق";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12 justify-content-center">
+    <div class="card bg-success">
+        <div class="card-header">عملیات موفق</div>
+        <div class="card-body form-horizontal">
+            <div style="font-size: 16px; text-align:center;">
+                عملیات پرداخت با موفقیت انجام شد و حساب شما شارژ گردید.
+            </div>
+            <div class="col-md-offset-4">
+                <table class="table table-bordered table-striped table-condensed col-md-6 text-center">
+                    <tbody>
+                        <tr>
+                            <td>شماره تراکنش</td>
+                            <td>@ViewBag.TransactionNo</td>
+                        </tr>
+                        <tr>
+                            <td>مبلغ تراکنش</td>
+                            <td>@ViewBag.Amount</td>
+                        </tr>
+                        <tr>
+                            <td>تاریخ تراکنش</td>
+                            <td>@ViewBag.TransactionDate</td>
+                        </tr>
+                        <tr>
+                            <td>زمان تراکنش</td>
+                            <td>@ViewBag.TransactionTime</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/js/adminpanel.js"></script>
+}

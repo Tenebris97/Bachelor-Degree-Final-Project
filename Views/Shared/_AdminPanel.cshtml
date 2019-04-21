@@ -1,0 +1,51 @@
+﻿
+<div class="menu col-md-2 col-sm-auto">
+    <ul>
+        <li class="dashboard text-center"><a asp-controller="Admin" asp-action="Index"><i class="fas fa-chalkboard"></i> داشبورد</a></li>
+        <li class="mainli openul">
+            <a href="#"><i class="fas fa-caret-down"></i>مدیریت سیستم</a>
+            <ul>
+                <li><a asp-controller="ManageUsers" asp-action="Index"><i class="far fa-address-card"></i> مدیریت کاربران</a></li>
+                <li><a asp-controller="ApplicationRole" asp-action="Index"><i class="fas fa-universal-access"></i> مدیریت نقش‌ها</a></li>
+                <li><a asp-controller="Category" asp-action="Index"><i class="fas fa-file-alt"></i> مدیریت دسته‌بندی‌ها</a></li>
+                <li><a asp-controller="Product" asp-action="Index"><i class="fas fa-clipboard"></i> مدیریت کالا</a></li>
+            </ul>
+        </li>
+
+        <li class="mainli openul">
+            <a href="#"><i class="fas fa-caret-down"></i>مدیریت جزئیات کالا</a>
+            <ul>
+                <li><a asp-controller="Laptop" asp-action="Index"><i class="fas fa-laptop"></i> مدیریت لپ‌تاپ‌ها</a></li>
+            </ul>
+            <ul>
+                <li><a asp-controller="Cellphone" asp-action="Index"><i class="fas fa-mobile-alt"></i> مدیریت گوشی‌های موبایل</a></li>
+            </ul>
+        </li>
+
+        <li class="mainli openul">
+            <a href="#"><i class="fas fa-caret-down"></i>پیشنهاد شگفت انگیز</a>
+            <ul>
+                <li><a asp-controller="Promotion" asp-action="Index"><i class="far fa-gem"></i> مدیریت پیشنهاد شگفت انگیز</a></li>
+            </ul>
+        </li>
+
+        <li class="mainli openul">
+            <a href="#"><i class="fas fa-caret-down"></i>مدیریت اخبار</a>
+            <ul>
+                <li><a asp-controller="News" asp-action="Index"><i class="fas fa-newspaper"></i> مدیریت اطلاعیه‌ها</a></li>
+            </ul>
+        </li>
+
+        <li class="mainli openul">
+            <a href="#"><i class="fas fa-caret-down"></i>مدیریت درخواست‌ها</a>
+            <ul>
+                <li><a asp-controller="ManageRequest" asp-action="Index">مدیریت درخواست‌ها</a></li>
+            </ul>
+            <ul>
+                <li><a asp-controller="ManageTransaction" asp-action="Index">لیست تراکنش‌ها</a></li>
+            </ul>
+        </li>
+
+    </ul>
+</div>
+

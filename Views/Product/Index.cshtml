@@ -1,0 +1,89 @@
+﻿
+@model ReflectionIT.Mvc.Paging.PagingList<FinalProject.Models.ViewModels.ProductListViewModel>
+@using ReflectionIT.Mvc.Paging;
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section searchSection{
+    <form class="navbar-nav navbar-left mt-3 ml-3">
+        <div class="form-group form-inline">
+            <input type="text" id="txtSearch" name="txtSearch" class="form-control" placeholder="جستجو" />
+            <button asp-controller="Home" asp-action="Search" class="btn btn-default ml-2">جستجو  <i class="fas fa-search"></i></button>
+        </div>
+    </form>
+}
+
+<h1 class="text-center">@ViewBag.ViewTitle</h1>
+<div class="row">
+    <div class="col-md-3">
+        @Html.Partial("_Basket")
+        @Html.Partial("_ProductSearch")
+    </div>
+    
+    <div class="col-md-9">
+        <div class="card-deck">
+            @foreach (var item in Model)
+            {
+                var finalPrice = item.ProductPrice - item.ProductDiscount;
+                var pricePercent = 0.0;
+
+                if (item.ProductDiscount != 0)
+                {
+                    pricePercent = (Convert.ToDouble(item.ProductDiscount) * 100) / Convert.ToDouble(item.ProductPrice);
+
+                }
+                else
+                {
+                    pricePercent = 0;
+                }
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="card bg-dark mb-3 w-100 h-100" id="tv">
+                        <img class="w-100 h-100" src="@ViewBag.RootPath@item.ProductImage">
+                        <div class="card-header text-white">
+                            <p style="font-size: 14px !important;">@item.ProductName</p>
+                            <a class="text-info" asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId" target="_blank" style="text-decoration: none; font-size: 14px !important;">مشاهده کالا</a>
+                        </div>
+                        <div style="height: 60px !important; min-height: 60px !important; border-top: 2px solid #fffdd0;">
+                            @if (item.ProductDiscount == 0)
+                            {
+                                <div class="row text-center justify-content-center" style="max-height:36px !important; margin-top: 12px !important;">
+                                    <span class="text-white" style="font-size: 20px;">@string.Format("{0:n0}", @item.ProductPrice)  تومان</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row text-center justify-content-center">
+                                    <span class="text-white-50">
+                                        <span style="text-decoration: line-through; font-size: 14px !important;">
+                                            @string.Format("{0:n0}", @item.ProductPrice)
+                                        </span>
+                                        <span class="text-info">&nbsp; - &nbsp;</span>
+                                        <span style="color:#fffdd0; font-size: 14px !important;">
+                                            @Math.Round(pricePercent) ٪ تخفیف
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="row text-center justify-content-center">
+                                    <span class="text-white" style="font-size: 20px;">@string.Format("{0:n0}", @finalPrice) تومان</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="row justify-content-center text-center ">
+    <nav class="text-center">
+        @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+    </nav>
+</div>

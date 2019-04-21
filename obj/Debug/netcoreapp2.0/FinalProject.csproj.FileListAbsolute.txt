@@ -1,0 +1,12 @@
+D:\ASP.NET\FinalProject\FinalProject\bin\Debug\netcoreapp2.0\FinalProject.deps.json
+D:\ASP.NET\FinalProject\FinalProject\bin\Debug\netcoreapp2.0\FinalProject.runtimeconfig.json
+D:\ASP.NET\FinalProject\FinalProject\bin\Debug\netcoreapp2.0\FinalProject.runtimeconfig.dev.json
+D:\ASP.NET\FinalProject\FinalProject\bin\Debug\netcoreapp2.0\FinalProject.dll
+D:\ASP.NET\FinalProject\FinalProject\obj\Debug\netcoreapp2.0\FinalProject.csprojAssemblyReference.cache
+D:\ASP.NET\FinalProject\FinalProject\obj\Debug\netcoreapp2.0\FinalProject.csproj.CoreCompileInputs.cache
+D:\ASP.NET\FinalProject\FinalProject\obj\Debug\netcoreapp2.0\FinalProject.AssemblyInfoInputs.cache
+D:\ASP.NET\FinalProject\FinalProject\obj\Debug\netcoreapp2.0\FinalProject.AssemblyInfo.cs
+D:\ASP.NET\FinalProject\FinalProject\bin\Debug\netcoreapp2.0\FinalProject.pdb
+D:\ASP.NET\FinalProject\FinalProject\obj\Debug\netcoreapp2.0\FinalProject.dll
+D:\ASP.NET\FinalProject\FinalProject\obj\Debug\netcoreapp2.0\FinalProject.pdb
+D:\ASP.NET\FinalProject\FinalProject\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs

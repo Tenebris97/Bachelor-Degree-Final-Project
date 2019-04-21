@@ -1,0 +1,33 @@
+﻿@model FinalProject.Models.News
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = Model.NewsTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <h4>
+                    @Html.DisplayFor(model => model.NewsTitle)
+                </h4>
+                <div>
+                    @Html.DisplayNameFor(model => model.NewsDate) :  @Html.DisplayFor(model => model.NewsDate)
+                </div>          
+            </div>
+            <div class="card-body">
+                <div class="justify-content-center mb-4">
+                    <img class="w-100 h-100" src="@ViewBag.imagepath@Model.NewsImage"/>
+                </div>
+                <div class="col-md-10" style="font-size:16px;">
+                    @Html.Raw(Model.NewsContent)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

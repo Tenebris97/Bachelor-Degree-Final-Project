@@ -1,0 +1,79 @@
+﻿
+@model ReflectionIT.Mvc.Paging.PagingList<FinalProject.Models.ViewModels.OrderListViewModel>
+@using ReflectionIT.Mvc.Paging;
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "لیست سفارشات";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">خانه</a></li>
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Admin" asp-action="Index"> پنل ادمین</a></li>
+    <li class="breadcrumb-item active"> کالا</li>
+</ol>
+
+<div class="row">
+    @Html.Partial("_UserPanel")
+
+    <div class="col-md-9 col-sm-auto">
+        <div class="card bg-info">
+            <div class="card-header text-white">
+                <h5>لیست سفارشات</h5>
+            </div>
+            <div class="card-body">
+                <div class="card-body">
+                    <table class="table table-striped table-bordered table-hover table-dark ">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.OrderId)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.OrderDate)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.Status)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.DeliveryDate)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.Price)</th>
+                                <th class="text-center" scope="col">جزيیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td class="text-center">@item.OrderId</td>
+                                <td class="text-center">@item.OrderDate</td>
+                                @if (item.Status == 1)
+                                {
+                                    <td class="text-center">پرداخت اینترنتی</td>
+                                }
+                                @if (item.Status == 2)
+                                {
+                                    <td class="text-center">پرداخت در محل</td>
+                                }
+                                @if (item.Status == 3)
+                                {
+                                    <td class="text-center">لغو شده</td>
+                                }
+                                <td class="text-center">@item.DeliveryDate</td>
+                                <td class="text-center">@string.Format("{0:n0}", item.Price)</td>
+                                <td class="text-center">
+                                    <a asp-action="Details" asp-area="User" asp-controller="Orders" asp-route-id="@item.OrderId">مشاهده</a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <nav class="text-center">
+                        @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+                    </nav>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+    <script src="~/js/adminpanel.js"></script>
+}

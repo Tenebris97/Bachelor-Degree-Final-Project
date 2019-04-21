@@ -1,0 +1,93 @@
+﻿@model FinalProject.Models.ViewModels.UserViewModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, LibraryProject
+
+@{
+    ViewData["Title"] = "AddUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="Add" role="form" asp-controller="ManageUsers" method="post">
+    <!--Right Group-->
+    <div class="form-row">
+        <!--Fullname-->
+        <div class="form-group col-md-6">
+            <label asp-for="FirstName"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <!--LastName-->
+        <div class="form-group  col-md-6">
+            <label asp-for="LastName"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <!--Email-->
+        <div class="form-group col-md-6">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <!--Role-->
+        <div class="form-group col-md-6">
+            <label asp-for="ApplicationRoleId"></label>
+            <select asp-for="ApplicationRoleId" asp-items="@Model.ApplicationRoles" class="form-control"></select>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <!--Gender-->
+        <div class="form-group col-md-6">
+            <label asp-for="Gender"></label>
+            <select asp-for="Gender" class="form-control">
+                <option value="1">آقا</option>
+                <option value="2">خانم</option>
+            </select>
+        </div>
+        <!--PhoneNumber-->
+        <div class="form-group col-md-6">
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-row">
+        <!--Username-->
+        <div class="form-group col-md-6">
+            <label asp-for="Username"></label>
+            <input asp-for="Username" class="form-control" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <!--Password-->
+        <div class="form-group col-md-6">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <!--Confirm Password-->
+        <div class="form-group">
+            <label asp-for="ConfirmPassword"></label>
+            <input asp-for="ConfirmPassword" class="form-control" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success"><i class="fas fa-check-double"></i>ثبت</button>
+        </div>
+
+        <div class="btn-group">
+            <a class="btn btn-primary marginButton" id="btnAddUser" asp-action="Index">
+                <i class="fas fa-angle-double-left"></i>
+                بازگشت
+            </a>
+        </div>
+    </div>
+    <input type="hidden" name="redirectUrl" value="@Url.Action("Index", "ManageUsers")" />
+</form>

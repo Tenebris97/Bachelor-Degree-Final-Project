@@ -556,6 +556,8 @@ namespace FinalProject.Controllers
                             orderDetails.ProductName = product.ProductName;
                             orderDetails.ProductPrice = product.ProductPrice;
                             orderDetails.OrderId = orderId;
+                            orderDetails.UserId = _userManager.GetUserId(User);
+
                             db.OrderDetails.Add(orderDetails);
                             db.SaveChanges();
                         }
@@ -649,6 +651,7 @@ namespace FinalProject.Controllers
                             orderDetails.ProductName = product.ProductName;
                             orderDetails.ProductPrice = product.ProductPrice;
                             orderDetails.OrderId = orderId;
+                            orderDetails.UserId = _userManager.GetUserId(User);
 
                             //Update product stock
                             product.ProductStock--;

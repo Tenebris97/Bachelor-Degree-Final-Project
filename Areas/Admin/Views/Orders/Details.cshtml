@@ -16,7 +16,7 @@
 </ol>
 
 <div class="row">
-    @Html.Partial("_UserPanel")
+    @Html.Partial("_AdminPanel")
     <div class="col-md-9 col-sm-auto">
         <div class="card bg-transparent">
             <div class="card-header">
@@ -43,18 +43,19 @@
                             int counter = 1;
                             @foreach (var item in Model)
                             {
-                        <tr>
-                            <td class="text-center">@(counter++)</td>
-                            <td class="text-center">@item.ProductName</td>
-                            <td class="text-center">@string.Format("{0:n0}", item.ProductPrice)</td>
-                            <td class="text-center">@string.Format("{0:n0}", item.Discount)</td>
-                            <td class="text-center">@string.Format("{0:n0}", item.ProductPrice - item.Discount)</td>
-                        </tr>
+                                <tr>
+                                    <td class="text-center">@(counter++)</td>
+                                    <td class="text-center">@item.ProductName</td>
+                                    <td class="text-center">@string.Format("{0:n0}", item.ProductPrice)</td>
+                                    <td class="text-center">@string.Format("{0:n0}", item.Discount)</td>
+                                    <td class="text-center">@string.Format("{0:n0}", item.ProductPrice - item.Discount)</td>
+                                </tr>
                             }
                         }
                     </tbody>
                 </table>
                 <div>
+
                     @if (Model.FirstOrDefault().Status == 1)
                     {
                         <p class="text-primary font-weight-bold">وضعیت: پرداخت اینترنتی (پرداخت شده)</p>
@@ -71,6 +72,7 @@
                     {
                         <p class="text-success font-weight-bold">وضعیت: تحویل داده شده</p>
                     }
+
                     <p class="font-weight-bold">مجموع قابل پرداخت: @string.Format("{0:n0}", Model.FirstOrDefault().Price)</p>
                 </div>
             </div>

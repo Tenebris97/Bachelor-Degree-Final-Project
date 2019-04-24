@@ -1,0 +1,146 @@
+﻿
+@model ReflectionIT.Mvc.Paging.PagingList<FinalProject.Models.ViewModels.OrderListViewModel>
+@using ReflectionIT.Mvc.Paging;
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "سفارشات پردازش نشده";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">خانه</a></li>
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Admin" asp-action="Index"> پنل ادمین</a></li>
+    <li class="breadcrumb-item active"> کالا</li>
+</ol>
+
+<div class="row">
+    @Html.Partial("_AdminPanel")
+
+    <div class="col-md-9 col-sm-auto">
+        <div class="card bg-info">
+            <div class="card-header text-white">
+                <h5>لیست سفارشات پردازش نشده</h5>
+            </div>
+            <div class="card-body">
+                <div class="card-body">
+                    <table class="table table-striped table-bordered table-hover table-dark ">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.OrderId)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.OrderDate)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.DeliveryDate)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.Status)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.Price)</th>
+                                <th class="text-center" scope="col">عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        <a target="_blank" id="orderId" asp-area="Admin"  asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderId">@item.OrderId</a>
+                                    </td>
+                                    <td class="text-center">@item.OrderDate</td>
+                                    <td class="text-center">@item.DeliveryDate</td>
+                                    @if (item.Status == 1)
+                                    {
+                                        <td class="text-center">پرداخت اینترنتی</td>
+                                    }
+                                    @if (item.Status == 2)
+                                    {
+                                        <td class="text-center">پرداخت در محل</td>
+                                    }
+                                    <td class="text-center">@string.Format("{0:n0}", item.Price)</td>
+                                    <td class="text-center">
+                                        <div class="form-group">
+                                            <a id="btnDelivered" class="btn btn-success">تحویل داده شد</a>
+                                        </div>
+                                        <div class="form-group">
+                                            <a id="btnCanceled" class="btn btn-danger">لغو سفارش</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <nav class="text-center">
+                        @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+    <script src="~/js/adminpanel.js"></script>
+    <script>
+        $('#btnDelivered').on("click", function () {
+            var orderId = $('#orderId').text();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Delivered", "UnmanagedOrders")',
+                data: { 'orderId': orderId }
+            }).done(function (res) {
+                    if (res.status === "success") {
+                        swal({
+                            title: "پردازش موفق",
+                            text: res.message,
+                            icon: "success",
+                            button: "ادامه"
+                        })
+                            .then((a) => {
+                                if (a) {
+                                    window.location.href = '@Url.Action("Index", "UnmanagedOrders", new { Area = "Admin"})';
+                                }
+                            });
+                    }
+                    else {
+                        $.each(res.error, function (a, b) {
+                            alert(b);
+                        });
+                    }
+                    //برای وقتی که اطلاعات سمت سرور نرفت و در همان ابتدا خطا داد
+                }).fail(function (xhr, b, error) {
+                    swal("Oops", error, "error");
+                })
+        });
+    </script>
+    <script>
+        $('#btnCanceled').on("click", function () {
+            var orderId = $('#orderId').text();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Canceled", "UnmanagedOrders")',
+                data: { 'orderId': orderId }
+            }).done(function (res) {
+                    if (res.status === "success") {
+                        swal({
+                            title: "لغو سفارش",
+                            text: res.message,
+                            icon: "warning",
+                            button: "ادامه"
+                        })
+                            .then((a) => {
+                                if (a) {
+                                    window.location.href = '@Url.Action("Index", "UnmanagedOrders", new { Area = "Admin"})';
+                                }
+                            });
+                    }
+                    else {
+                        $.each(res.error, function (a, b) {
+                            alert(b);
+                        });
+                    }
+                    //برای وقتی که اطلاعات سمت سرور نرفت و در همان ابتدا خطا داد
+                }).fail(function (xhr, b, error) {
+                    swal("Oops", error, "error");
+                })
+        });
+    </script>
+}

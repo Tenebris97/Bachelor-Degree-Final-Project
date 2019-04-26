@@ -1,17 +1,21 @@
 ﻿
 <form method="post" asp-controller="Product" asp-action="Search">
-    <div class="form-row">
+    <div class="form-group">
+
         <div class="form-group">
             <input type="text" id="productSearch" name="productSearch" class="form-control" placeholder="جستجوی کالا..." />
         </div>
+
         <div class="form-group">
             <input type="text" id="categorySearch" name="categorySearch" class="form-control" placeholder="جستجوی دسته‌بندی..." />
         </div>
+
         <div class="form-group">
             <button class="btn btn-dark" type="submit">
                 جستجو
                 <i class="fas fa-search"></i>
             </button>
         </div>
+
     </div>
 </form>

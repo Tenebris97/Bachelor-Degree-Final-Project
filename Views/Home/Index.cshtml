@@ -19,35 +19,38 @@
     </form>
 }
 
+@section basket{
+    @Html.Partial("_Basket")
+}
 
-    <div class="row">
-        <div class="col-md-3">
-            @Html.Partial("_RecentNewsPartial", Model.LastNews)
-        </div>
-        <div class="col-md-9">
-            @Html.Partial("_Promotion", Model.PromotionsListViewModel)
-        </div>
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script>
-            $(document).ready(function () {
-                $(".owl-carousel").owlCarousel();
-            });
-            $('.owl-carousel').owlCarousel({
-                loop: true,
-                margin: 10,
-                nav: true,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 3
-                    },
-                    1000: {
-                        items: 5
-                    }
-                }
-            });
-        </script>
+<div class="row">
+    <div class="col-md-3">
+        @Html.Partial("_RecentNewsPartial", Model.LastNews)
     </div>
+    <div class="col-md-9">
+        @Html.Partial("_Promotion", Model.PromotionsListViewModel)
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".owl-carousel").owlCarousel();
+        });
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
+        });
+    </script>
+</div>
 

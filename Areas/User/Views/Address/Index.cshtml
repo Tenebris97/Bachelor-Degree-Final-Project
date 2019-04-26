@@ -8,6 +8,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section basket{
+    @Html.Partial("_Basket")
+}
 
 <div class="row">
     @Html.Partial("_UserPanel")
@@ -19,8 +22,8 @@
                 <h5>لیست آدرس‌‌ها</h5>
             </div>
             <div class="card-body">
-                @if(Model.SingleOrDefault() == null)
-                { 
+                @if (Model.SingleOrDefault() == null)
+                {
                     <div class="btn-group">
                         <a class="btn btn-dark marginButton" asp-action="Add">
                             افزودن آدرس جدید

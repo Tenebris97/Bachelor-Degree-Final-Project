@@ -1,36 +1,29 @@
 ﻿
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpCookie
+<div class="navbar-nav navbar-left mt-3 ml-3">
+    @{
+        if (HttpCookie.HttpContext.Request.Cookies["ATB"] != null)
+        {
+            string cookieContent = HttpCookie.HttpContext.Request.Cookies["ATB"].ToString();
+            string[] requestedBookCount = cookieContent.Split(',');
+            requestedBookCount = requestedBookCount.Where(r => r != "").ToArray();
 
-@{
-    if (HttpCookie.HttpContext.Request.Cookies["ATB"] != null)
-    {
-        string cookieContent = HttpCookie.HttpContext.Request.Cookies["ATB"].ToString();
-        string[] requestedBookCount = cookieContent.Split(',');
-        requestedBookCount = requestedBookCount.Where(r => r != "").ToArray();
-
-        <div id="sabadAmanat" class="divStyle">
-            <span class="div-header">سبد خرید</span>
-            <div class="hr"></div>
-
-            <div style="margin-right: 10px; margin-bottom: 15px; margin-top: 15px; font-size: 16px;">
-                <span>تعداد کالا: <span id="requestCount" style="color: blue;">@requestedBookCount.Count()</span></span>
+            <div class="form-group form-inline">
+                <button asp-controller="Product" asp-action="Cart" class="btn btn-info" style="height: 37.6px;">
+                    <i class="fas fa-shopping-cart float-right"></i>
+                    <span class="badge badge-pill badge-dark float-left ml-1">@requestedBookCount.Count()</span>
+                </button>
             </div>
+        }
 
-            <div style="margin-right: 10px; margin-bottom: 15px; margin-top: 15px; font-size: 16px;">
-                <a asp-controller="Product" asp-action="Cart">مشاهده سبد خرید</a>
+        else
+        {
+            <div class="form-group form-inline">
+                <button asp-controller="Product" asp-action="Cart" class="btn btn-info" style="height: 37.6px;">
+                    <i class="fas fa-shopping-cart float-right"></i>
+                    <span class="badge badge-pill badge-dark float-left ml-1">0</span>
+                </button>
             </div>
-
-        </div>
+        }
     }
-    else
-    {
-        <div id="sabadAmanat" class="divStyle">
-            <span class="div-header">سبد امانات</span>
-            <div class="hr"></div>
-
-            <div style="margin-right: 10px; margin-bottom: 15px; margin-top: 15px; font-size: 16px;">
-                <span>تعداد کالا: <span id="requestCount" style="color: blue;">0</span></span>
-            </div>
-        </div>
-    }
-}
+</div>

@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace FinalProject.Areas.User.Controllers
 {
     [Area("User")]
+    [Authorize(Policy = "RequireMemberRole")]
     public class ManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

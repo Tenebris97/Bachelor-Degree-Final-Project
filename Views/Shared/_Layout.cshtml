@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
+@inject SignInManager<ApplicationUser> signInManager;
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,7 +13,7 @@
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
         <link href="~/css/AdminPanel.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link href="~/lib/toastr.min.css" rel="stylesheet" />
         <link href="~/css/owl.carousel.min.css" rel="stylesheet" />
         <link href="~/css/owl.theme.default.min.css" rel="stylesheet" />
@@ -58,17 +59,21 @@
                         <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="About">درباره ما</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="Admin" asp-controller="Admin" asp-action="Index">مدیر سایت</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link text-white" asp-area="" asp-controller="Product" asp-action="Index">محصولات</a>
                     </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" style="color: #fffdd0;" asp-area="Admin" asp-controller="Admin" asp-action="Index">مدیریت سایت</a>
+                        </li>
+                    }
                 </ul>
             </div>
             <!--Search-->
             @RenderSection("searchSection", false)
 
             @RenderSection("basket", false)
+
         </div>
     </nav>
     <!--baghie view haE ke az _Layout estefade mikonn mian inja-->

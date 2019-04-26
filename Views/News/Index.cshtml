@@ -8,6 +8,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section basket{
+    @Html.Partial("_Basket")
+}
+
 <div class="row justify-content-center">
     <div class="col-md-10">
         <div class="card">
@@ -17,11 +21,11 @@
                 </h4>
                 <div>
                     @Html.DisplayNameFor(model => model.NewsDate) :  @Html.DisplayFor(model => model.NewsDate)
-                </div>          
+                </div>
             </div>
             <div class="card-body">
                 <div class="justify-content-center mb-4">
-                    <img class="w-100 h-100" src="@ViewBag.imagepath@Model.NewsImage"/>
+                    <img class="w-100 h-100" src="@ViewBag.imagepath@Model.NewsImage" />
                 </div>
                 <div class="col-md-10" style="font-size:16px;">
                     @Html.Raw(Model.NewsContent)

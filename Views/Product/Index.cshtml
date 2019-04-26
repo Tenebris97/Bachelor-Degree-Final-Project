@@ -6,7 +6,7 @@
 @addTagHelper *, FinalProject
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "تمام محصولات";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,13 +19,18 @@
     </form>
 }
 
+@section basket{
+    @Html.Partial("_Basket")
+}
+
 <h1 class="text-center">@ViewBag.ViewTitle</h1>
+<hr />
+
 <div class="row">
     <div class="col-md-3">
-        @Html.Partial("_Basket")
         @Html.Partial("_ProductSearch")
     </div>
-    
+
     <div class="col-md-9">
         <div class="card-deck">
             @foreach (var item in Model)

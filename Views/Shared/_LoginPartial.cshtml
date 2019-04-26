@@ -8,9 +8,12 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-white" asp-area="User" asp-controller="Manage" asp-action="Index">@UserManager.GetUserName(User)</a>
-        </li>
+        if (User.IsInRole("Member"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-area="User" asp-controller="Manage" asp-action="Index">@UserManager.GetUserName(User)</a>
+            </li>
+        }
         <li class="nav-item">
             <form class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
                 <button type="submit" class="nav-link btn btn-link text-white">خروج</button>

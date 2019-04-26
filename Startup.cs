@@ -37,7 +37,7 @@ namespace FinalProject
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -56,6 +56,18 @@ namespace FinalProject
             //baraye estefade az paging
             services.AddPaging(options => {
                 options.ViewName = "Bootstrap4";
+            });
+
+            //Admin Policy
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+            });
+
+            //Member Policy
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireMemberRole", policy => policy.RequireRole("Member"));
             });
         }
 

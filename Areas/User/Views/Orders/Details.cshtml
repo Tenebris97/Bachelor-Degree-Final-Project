@@ -15,6 +15,10 @@
     <li class="breadcrumb-item active"> جزئیات سفارش</li>
 </ol>
 
+@section basket{
+    @Html.Partial("_Basket")
+}
+
 <div class="row">
     @Html.Partial("_UserPanel")
     <div class="col-md-9 col-sm-auto">
@@ -43,13 +47,13 @@
                             int counter = 1;
                             @foreach (var item in Model)
                             {
-                        <tr>
-                            <td class="text-center">@(counter++)</td>
-                            <td class="text-center">@item.ProductName</td>
-                            <td class="text-center">@string.Format("{0:n0}", item.ProductPrice)</td>
-                            <td class="text-center">@string.Format("{0:n0}", item.Discount)</td>
-                            <td class="text-center">@string.Format("{0:n0}", item.ProductPrice - item.Discount)</td>
-                        </tr>
+                                <tr>
+                                    <td class="text-center">@(counter++)</td>
+                                    <td class="text-center">@item.ProductName</td>
+                                    <td class="text-center">@string.Format("{0:n0}", item.ProductPrice)</td>
+                                    <td class="text-center">@string.Format("{0:n0}", item.Discount)</td>
+                                    <td class="text-center">@string.Format("{0:n0}", item.ProductPrice - item.Discount)</td>
+                                </tr>
                             }
                         }
                     </tbody>

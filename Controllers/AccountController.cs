@@ -73,8 +73,11 @@ namespace FinalProject.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var currentUser = await _userManager.FindByEmailAsync(model.Email);
+                    string userRole = _userManager.GetRolesAsync(currentUser).Result.Single();
+
                     _logger.LogInformation("User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToLocal(returnUrl, userRole);
                 }
                 if (result.IsLockedOut)
                 {
@@ -117,8 +120,12 @@ namespace FinalProject.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
+                    //Add normal users as "Member"
+                    await _userManager.AddToRoleAsync(user, "Member");
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -264,16 +271,21 @@ namespace FinalProject.Controllers
             }
         }
 
-        private IActionResult RedirectToLocal(string returnUrl)
+        private IActionResult RedirectToLocal(string returnUrl, string roleName)
         {
             if (Url.IsLocalUrl(returnUrl))
             {
+                //agar yek masir az ghabl vojud dasht 
                 return Redirect(returnUrl);
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                if (roleName == "Admin")
+                    return Redirect("/Admin");
+                else if (roleName == "Member")
+                    return Redirect("/User/Manage");
             }
+            return null;
         }
         #endregion
     }

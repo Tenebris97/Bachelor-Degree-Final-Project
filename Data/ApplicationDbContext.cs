@@ -8,7 +8,7 @@ using FinalProject.Models;
 
 namespace FinalProject.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string> //User, Role, Key
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> //User, Role, Key
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

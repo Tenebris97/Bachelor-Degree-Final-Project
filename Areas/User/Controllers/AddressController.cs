@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FinalProject.Areas.User.Models;
 using FinalProject.Data;
 using FinalProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace FinalProject.Areas.User.Controllers
 {
     [Area("User")]
+    [Authorize(Policy = "RequireMemberRole")]
     public class AddressController : Controller
     {
         private readonly ApplicationDbContext _context;

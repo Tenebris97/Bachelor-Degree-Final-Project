@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinalProject.Data;
 using FinalProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using ReflectionIT.Mvc.Paging;
 namespace FinalProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Policy = "RequireAdminRole")]
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -16,6 +16,10 @@
     <li class="breadcrumb-item active"> کالا</li>
 </ol>
 
+@section basket{
+    @Html.Partial("_Basket")
+}
+
 <div class="row">
     @Html.Partial("_UserPanel")
 
@@ -40,38 +44,38 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td class="text-center">@item.OrderId</td>
-                                <td class="text-center">@item.OrderDate</td>
-                                @if (item.Status == 1)
-                                {
-                                    <td class="text-center">پرداخت اینترنتی</td>
-                                }
-                                @if (item.Status == 2)
-                                {
-                                    <td class="text-center">پرداخت در محل</td>
-                                }
-                                @if (item.Status == 3)
-                                {
-                                    <td class="text-center text-danger">لغو شده</td>
-                                }
-                                @if (item.Status == 4)
-                                {
-                                    <td class="text-center text-success">تحویل داده شده</td>
-                                }
-                                @if (item.DeliveryDate == null)
-                                {
-                                    <td class="text-center">--</td>
-                                }
-                                else
-                                {
-                                    <td class="text-center">@item.DeliveryDate</td>
-                                }
-                                <td class="text-center">@string.Format("{0:n0}", item.Price)</td>
-                                <td class="text-center">
-                                    <a target="_blank" asp-action="Details" asp-area="User" asp-controller="Orders" asp-route-id="@item.OrderId">مشاهده</a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="text-center">@item.OrderId</td>
+                                    <td class="text-center">@item.OrderDate</td>
+                                    @if (item.Status == 1)
+                                    {
+                                        <td class="text-center">پرداخت اینترنتی</td>
+                                    }
+                                    @if (item.Status == 2)
+                                    {
+                                        <td class="text-center">پرداخت در محل</td>
+                                    }
+                                    @if (item.Status == 3)
+                                    {
+                                        <td class="text-center text-danger">لغو شده</td>
+                                    }
+                                    @if (item.Status == 4)
+                                    {
+                                        <td class="text-center text-success">تحویل داده شده</td>
+                                    }
+                                    @if (item.DeliveryDate == null)
+                                    {
+                                        <td class="text-center">--</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center">@item.DeliveryDate</td>
+                                    }
+                                    <td class="text-center">@string.Format("{0:n0}", item.Price)</td>
+                                    <td class="text-center">
+                                        <a target="_blank" asp-action="Details" asp-area="User" asp-controller="Orders" asp-route-id="@item.OrderId">مشاهده</a>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>

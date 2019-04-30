@@ -55,17 +55,18 @@ namespace FinalProject.Areas.User.Controllers
 
             var model = (from order in _context.Order
                          join orderDetails in _context.OrderDetails on order.OrderId equals orderDetails.OrderId
-                         join product in _context.products on orderDetails.ProductName equals product.ProductName
+                         join product in _context.products on orderDetails.ProductId equals product.ProductId
                          where order.UserId == _userManager.GetUserId(User) && orderDetails.OrderId == id
                          select new OrderDetailListViewModel()
                          {
                              OrderId = order.OrderId,
-                             ProductName = orderDetails.ProductName,
+                             ProductName = product.ProductName,
                              Price = order.Price,
-                             ProductPrice = orderDetails.ProductPrice,
+                             ProductPrice = product.ProductPrice,
                              DeliveryDate = order.DeliveryDate,
                              OrderDate = order.OrderDate,
                              Status = order.Flag,
+                             ProductId = product.ProductId,
                              Discount = product.ProductDiscount
                          }).ToList();
 

@@ -1,0 +1,66 @@
+﻿
+@model ReflectionIT.Mvc.Paging.PagingList<FinalProject.Models.ViewModels.TransactionViewModel>
+@using ReflectionIT.Mvc.Paging;
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "کلیه تراکنش‌ها";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">خانه</a></li>
+    <li class="breadcrumb-item"><a asp-area="User" asp-controller="Manage" asp-action="Index"> پنل کاربری</a></li>
+    <li class="breadcrumb-item active"> کلیه تراکنش‌ها</li>
+</ol>
+
+<div class="row">
+    @Html.Partial("_UserPanel")
+
+    <div class="col-md-9 col-sm-auto">
+        <div class="card bg-info">
+            <div class="card-header text-white">
+                <h5>لیست کلیه سفارشات</h5>
+            </div>
+            <div class="card-body">
+                <div class="card-body">
+                    <table class="table table-striped table-bordered table-hover table-dark ">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.OrderId)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.TransactionNo)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.TransactionDate)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.TransactionTime)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.Amount)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        <a target="_blank" id="orderId" asp-area="User" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderId">@item.OrderId</a>
+                                    </td>
+                                    <td class="text-center">@item.TransactionNo</td>
+                                    <td class="text-center">@item.TransactionDate</td>
+                                    <td class="text-center">@item.TransactionTime</td>
+                                    <td class="text-center">@string.Format("{0:n0}", item.Amount)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <nav class="text-center">
+                        @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+    <script src="~/js/adminpanel.js"></script>
+}

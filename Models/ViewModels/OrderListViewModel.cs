@@ -20,6 +20,9 @@ namespace FinalProject.Models.ViewModels
         [Display(Name = "تاریخ ثبت سفارش")]
         public string OrderDate { get; set; }
 
+        [Display(Name = "نام مشتری")]
+        public string CustomerName { get; set; }
+
         [Display(Name = "قیمیت نهایی")]
         public int Price { get; set; }
     }

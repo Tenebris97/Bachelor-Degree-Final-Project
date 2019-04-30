@@ -1,19 +1,19 @@
 ﻿
-@model ReflectionIT.Mvc.Paging.PagingList<FinalProject.Models.ViewModels.OrderListViewModel>
+@model ReflectionIT.Mvc.Paging.PagingList<FinalProject.Models.ViewModels.TransactionViewModel>
 @using ReflectionIT.Mvc.Paging;
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, FinalProject
 
 @{
-    ViewData["Title"] = "کلیه سفارشات";
+    ViewData["Title"] = "کلیه تراکنش‌ها";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <ol class="breadcrumb bg-transparent">
     <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">خانه</a></li>
     <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Admin" asp-action="Index"> پنل ادمین</a></li>
-    <li class="breadcrumb-item active"> کلیه سفارشات</li>
+    <li class="breadcrumb-item active"> کلیه تراکنش‌ها</li>
 </ol>
 
 <div class="row">
@@ -30,10 +30,10 @@
                         <thead>
                             <tr>
                                 <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.OrderId)</th>
-                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.OrderDate)</th>
-                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.DeliveryDate)</th>
-                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.Status)</th>
-                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.Price)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.TransactionNo)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.TransactionDate)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.TransactionTime)</th>
+                                <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.Amount)</th>
                                 <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.CustomerName)</th>
                             </tr>
                         </thead>
@@ -44,32 +44,10 @@
                                 <td class="text-center">
                                     <a target="_blank" id="orderId" asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderId">@item.OrderId</a>
                                 </td>
-                                <td class="text-center">@item.OrderDate</td>
-                                @if (item.DeliveryDate == null)
-                                {
-                                    <td class="text-center">--</td>
-                                }
-                                else
-                                {
-                                    <td class="text-center">@item.DeliveryDate</td>
-                                }
-                                @if (item.Status == 1)
-                                {
-                                    <td class="text-center text-primary">پرداخت اینترنتی</td>
-                                }
-                                @if (item.Status == 2)
-                                {
-                                    <td class="text-center text-warning">پرداخت در محل</td>
-                                }
-                                @if (item.Status == 3)
-                                {
-                                    <td class="text-center text-danger">لغو شده</td>
-                                }
-                                @if (item.Status == 4)
-                                {
-                                    <td class="text-center text-success">تحویل داده شده</td>
-                                }
-                                <td class="text-center">@string.Format("{0:n0}", item.Price)</td>
+                                <td class="text-center">@item.TransactionNo</td>
+                                <td class="text-center">@item.TransactionDate</td>
+                                <td class="text-center">@item.TransactionTime</td>
+                                <td class="text-center">@string.Format("{0:n0}", item.Amount)</td>
                                 <td class="text-center">@item.CustomerName</td>
                             </tr>
                             }

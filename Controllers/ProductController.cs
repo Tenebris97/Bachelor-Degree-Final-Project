@@ -254,6 +254,7 @@ namespace FinalProject.Controllers
             return View("NotFounds");
         }
 
+        [Authorize(Policy = "RequireMemberRole")]
         public async Task<IActionResult> Like(int id)
         {
             using (var db = _iServiceProvider.GetRequiredService<ApplicationDbContext>())
@@ -310,6 +311,7 @@ namespace FinalProject.Controllers
             }
         }
 
+        [Authorize(Policy = "RequireMemberRole")]
         public async Task<IActionResult> Dislike(int id)
         {
             using (var db = _iServiceProvider.GetRequiredService<ApplicationDbContext>())
@@ -371,6 +373,7 @@ namespace FinalProject.Controllers
             }
         }
 
+        [Authorize(Policy = "RequireMemberRole")]
         public IActionResult AddToBasket(int id)
         {
             using (var db = _iServiceProvider.GetRequiredService<ApplicationDbContext>())
@@ -442,6 +445,7 @@ namespace FinalProject.Controllers
             }
         }
 
+        [Authorize(Policy = "RequireMemberRole")]
         public async Task<IActionResult> Cart()
         {
             var model = new MultiModels();
@@ -452,7 +456,8 @@ namespace FinalProject.Controllers
 
             var userId = _userManager.GetUserId(User);
 
-            model.Address = _context.Address.Where(a => a.UserId == _userManager.GetUserId(User)).SingleOrDefault();
+            model.Address = _context.Address.Where(a => a.UserId == userId).SingleOrDefault();
+            model.CurrentUser = _context.Users.Where(a => a.Id == userId).SingleOrDefault();
 
             if (Request.Cookies["ATB"] != null)
             {
@@ -516,6 +521,7 @@ namespace FinalProject.Controllers
         }
 
         [Authorize]
+        [Authorize(Policy = "RequireMemberRole")]
         public IActionResult Order(string userId, string tp)
         {
             string cookieContent = Request.Cookies["ATB"].ToString();
@@ -540,22 +546,25 @@ namespace FinalProject.Controllers
                         int month = persianCalendar.GetMonth(currentDate);
                         int day = persianCalendar.GetDayOfMonth(currentDate);
                         string persianDate = string.Format("{0:yyyy/MM/dd}", Convert.ToDateTime(year + "/" + month + "/" + day));
+
                         Order order = new Order();
                         order.UserId = userId;
                         order.OrderDate = persianDate;
                         order.Flag = 2;
                         order.Price = Convert.ToInt32(tp);
                         order.AddressId = address.AddressId;
+
                         db.Order.Add(order);
                         db.SaveChanges();
+
                         int orderId = order.OrderId;
+
                         for (int i = 0; i < productId.Count(); i++)
                         {
                             var product = (from b in db.products where b.ProductId == Convert.ToInt32(productId[i]) select b).SingleOrDefault();
                             OrderDetails orderDetails = new OrderDetails();
-                            orderDetails.ProductName = product.ProductName;
-                            orderDetails.ProductPrice = product.ProductPrice;
                             orderDetails.OrderId = orderId;
+                            orderDetails.ProductId = product.ProductId;
                             orderDetails.UserId = _userManager.GetUserId(User);
 
                             db.OrderDetails.Add(orderDetails);
@@ -566,11 +575,12 @@ namespace FinalProject.Controllers
                     catch { }
                 }
         }
-        Response.Cookies.Delete("ATB");
+            Response.Cookies.Delete("ATB");
             return Json(new { status = "success", message = "سفارش شما با موفقیت ثبت شد. با تشکر از خرید شما" });
         }
 
         [HttpPost]
+        [Authorize(Policy = "RequireMemberRole")]
         public async Task<IActionResult> Payment(MultiModels t)
         {
 
@@ -594,6 +604,7 @@ namespace FinalProject.Controllers
 
         }
 
+        [Authorize(Policy = "RequireMemberRole")]
         public async Task<IActionResult> PaymentVerify(int amount, string Email, string Desc, string Authority, string Status)
         {
             if (Status == "NOK") return View("FailedPayment");
@@ -639,8 +650,10 @@ namespace FinalProject.Controllers
                         order.Flag = 1;
                         order.Price = amount;
                         order.AddressId = address.AddressId;
+
                         database.Order.Add(order);
                         database.SaveChanges();
+
                         int orderId = order.OrderId;
 
                         for (int i = 0; i < productId.Count(); i++)
@@ -648,8 +661,7 @@ namespace FinalProject.Controllers
                             var product = (from b in database.products where b.ProductId == Convert.ToInt32(productId[i]) select b).SingleOrDefault();
 
                             OrderDetails orderDetails = new OrderDetails();
-                            orderDetails.ProductName = product.ProductName;
-                            orderDetails.ProductPrice = product.ProductPrice;
+                            orderDetails.ProductId = product.ProductId;
                             orderDetails.OrderId = orderId;
                             orderDetails.UserId = _userManager.GetUserId(User);
 

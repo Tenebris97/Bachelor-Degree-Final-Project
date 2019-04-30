@@ -33,13 +33,15 @@ namespace FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Index(int page = 1)
         {
             var query = (from p in _context.Order
+                         join u in _context.Users on p.UserId equals u.Id
                          select new OrderListViewModel()
                          {
                              OrderId = p.OrderId,
                              OrderDate = p.OrderDate,
                              DeliveryDate = p.DeliveryDate,
                              Price = p.Price,
-                             Status = p.Flag
+                             Status = p.Flag,
+                             CustomerName = u.FirstName + " " + u.LastName
                          }).AsNoTracking().OrderBy(p => p.OrderId);
 
             var modelPaging = await PagingList.CreateAsync(query, 10, page);
@@ -56,18 +58,21 @@ namespace FinalProject.Areas.Admin.Controllers
 
             var model = (from order in _context.Order
                          join orderDetails in _context.OrderDetails on order.OrderId equals orderDetails.OrderId
-                         join product in _context.products on orderDetails.ProductName equals product.ProductName
+                         join product in _context.products on orderDetails.ProductId equals product.ProductId
+                         join user in _context.Users on orderDetails.UserId equals user.Id
                          where order.OrderId == id
                          select new OrderDetailListViewModel()
                          {
                              OrderId = order.OrderId,
-                             ProductName = orderDetails.ProductName,
+                             ProductName = product.ProductName,
                              Price = order.Price,
-                             ProductPrice = orderDetails.ProductPrice,
+                             ProductPrice = product.ProductPrice,
                              DeliveryDate = order.DeliveryDate,
                              OrderDate = order.OrderDate,
                              Status = order.Flag,
-                             Discount = product.ProductDiscount
+                             Discount = product.ProductDiscount,
+                             ProductId = product.ProductId,
+                             CustomerName = user.FirstName + " " + user.LastName
                          }).ToList();
 
             return View(model);

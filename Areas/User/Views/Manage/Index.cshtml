@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "پنل کاربری";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,7 +11,10 @@
 <div class="row">
     @Html.Partial("_UserPanel")
     <div class="col-md-10">
-
+        @if(ViewBag.isUserUnvalid == "1")
+        {
+            <h1 class="text-dark bg-danger text-center">لطفا مشخصات خود را تکمیل کنید</h1>
+        }
         <div class="card bg-transparent">
             <div class="card-header ">
                 <div class="row justify-content-center">

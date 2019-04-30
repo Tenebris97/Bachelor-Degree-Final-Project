@@ -99,6 +99,10 @@
             {
                 <p>آدرسی یافت نشد. لطفا آدرس خود را از طریق <a asp-area="User" asp-controller="Address" asp-action="Add">پنل کاربری</a> اضافه کنید</p>
             }
+            else if (Model.CurrentUser.FirstName == null && Model.CurrentUser.LastName == null)
+            {
+                <p> لطفا نام و نام خانوادگی خود را از طریق <a asp-area="User" asp-controller="Manage" asp-action="Profile">پنل کاربری</a> اضافه کنید</p>
+            }
             else
             {
                 <p>@Model.Address.FullAddress</p>
@@ -107,7 +111,7 @@
 
         <hr style="border: 1px solid gray;" />
 
-        @if (Model.Address != null)
+        @if (Model.Address != null && Model.CurrentUser.FirstName != null && Model.CurrentUser.LastName != null)
         {
         <div style="text-align: center; margin-top: 40px;">
             <form asp-controller="Product" asp-action="Payment" method="post" style="text-align:center;">

@@ -11,8 +11,6 @@ namespace FinalProject.Models
     {
         [Key]
         public int OrderDetailsId { get; set; }
-        public string ProductName { get; set; }
-        public int ProductPrice { get; set; }
         /*=================================*/
         public int OrderId { get; set; }
         [ForeignKey("OrderId")]
@@ -21,5 +19,9 @@ namespace FinalProject.Models
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser Users { get; set; }
+
+        public int ProductId { get; set; }
+        [ForeignKey("ProductId")]
+        public virtual Product Products { get; set; }
     }
 }

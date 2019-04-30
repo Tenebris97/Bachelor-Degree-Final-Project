@@ -29,17 +29,11 @@ namespace FinalProject.Models
         [Display(Name = "ایمیل")]
         public string Email { get; set; }
 
-        //Foreign Key
         public string UserId { get; set; }
-
-        //Foreign Key az inja mikhune
         [ForeignKey("UserId")]
         public virtual ApplicationUser Users { get; set; }
 
-        //Foreign Key
         public int OrderId { get; set; }
-
-        //Foreign Key az inja mikhune
         [ForeignKey("OrderId")]
         public virtual Order Orders { get; set; }
     }

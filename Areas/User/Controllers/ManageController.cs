@@ -63,6 +63,27 @@ namespace FinalProject.Areas.User.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            var model = new IndexViewModel
+            {
+                Username = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                IsEmailConfirmed = user.EmailConfirmed,
+                StatusMessage = StatusMessage,
+                Firstname = user.FirstName,
+                Lastname = user.LastName,
+                Gender = user.Gender,
+                Birthdate = user.Birthdate,
+                NationalCode = user.NationalCode,
+                MobileNumber = user.MobileNumber
+            };
+
+            if (string.IsNullOrEmpty(model.Firstname) || string.IsNullOrEmpty(model.Lastname) || string.IsNullOrEmpty(model.Firstname)
+                || string.IsNullOrEmpty(model.PhoneNumber) || string.IsNullOrEmpty(model.NationalCode))
+            {
+                ViewBag.isUserUnvalid = "1";
+            }
+
             int orderCount = (from o in _context.Order where o.UserId == _userManager.GetUserId(User) select o).Count();
             int productCount = (from o in _context.OrderDetails where o.UserId == _userManager.GetUserId(User) select o).Count();
             int totalMoney = (from o in _context.Order where o.UserId == _userManager.GetUserId(User) select o.Price).Sum();

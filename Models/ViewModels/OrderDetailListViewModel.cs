@@ -33,5 +33,10 @@ namespace FinalProject.Models.ViewModels
 
         [Display(Name = "تخفیف")]
         public int Discount { get; set; }
+
+        [Display(Name = "نام مشتری")]
+        public string CustomerName { get; set; }
+
+        public int ProductId { get; set; }
     }
 }

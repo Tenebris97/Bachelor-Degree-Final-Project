@@ -74,6 +74,7 @@
             });
         });
 
+        //Add to Basket
         $('#btnAddToBasket').on("click", function () {
             var post_data = $('#id').text();
             $.ajax({
@@ -90,6 +91,40 @@
                     }
                 }
             });
+        });
+
+        //Add to Wishlist
+        $('#btnWishlist').on("click", function () {
+            var id = $('#id').text();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Wishlist", "Product")',
+                data: { 'id': id }
+            }).done(function (res) {
+                    if (res.status === "success") {
+                        swal({
+                            title: "افزودن به علاقه‌مندی‌ها",
+                            text: res.message,
+                            icon: "success",
+                            button: "ادامه"
+                        });
+                    }
+                    else if (res.status === "warning") {
+                        swal({
+                            title: "افزودن به علاقه‌مندی‌ها",
+                            text: res.message,
+                            icon: "warning",
+                            button: "ادامه"
+                        });
+                    }
+                    else {
+                        $.each(res.error, function (a, b) {
+                            alert(b);
+                        });
+                    }
+                }).fail(function (xhr, b, error) {
+                    swal("Oops", error, "error");
+                })
         });
     </script>
 }

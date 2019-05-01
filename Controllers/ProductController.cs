@@ -574,7 +574,7 @@ namespace FinalProject.Controllers
                     }
                     catch { }
                 }
-        }
+            }
             Response.Cookies.Delete("ATB");
             return Json(new { status = "success", message = "سفارش شما با موفقیت ثبت شد. با تشکر از خرید شما" });
         }
@@ -593,8 +593,12 @@ namespace FinalProject.Controllers
 
             //From Zarinpal
             var payment = await new ZarinpalSandbox.Payment(t.Transaction.Amount).PaymentRequest("توضیحات",
-                Url.Action(nameof(PaymentVerify), "Product", new{ amount = t.Transaction.Amount,
-                Email = t.Transaction.Email, Desc = t.Transaction.Description}
+                Url.Action(nameof(PaymentVerify), "Product", new
+                {
+                    amount = t.Transaction.Amount,
+                    Email = t.Transaction.Email,
+                    Desc = t.Transaction.Description
+                }
                 , Request.Scheme),
                t.Transaction.Email, t.CurrentUser.PhoneNumber);
             //درصورت موفقیت آمیز بودن درخواست کاربر را به صفحه درخواست هدایت کن
@@ -700,6 +704,29 @@ namespace FinalProject.Controllers
             ViewBag.TransactionTime = time;
             Response.Cookies.Delete("ATB");
             return View("SuccessfullPayment");
+        }
+
+        [Authorize]
+        [Authorize(Policy = "RequireMemberRole")]
+        public IActionResult Wishlist(string id)
+        {
+            int pId = Convert.ToInt32(id);
+            var query = (from w in _context.Wishlist where w.ProductId == pId && w.UserId == _userManager.GetUserId(User) select w).SingleOrDefault();
+            
+            if(query == null)
+            {
+                using (var db = _context)
+                {
+                    Wishlist wishlist = new Wishlist();
+                    wishlist.ProductId = pId;
+                    wishlist.UserId = _userManager.GetUserId(User);
+                    db.Wishlist.Add(wishlist);
+                    db.SaveChanges();
+                }
+                return Json(new { status = "success", message = "کالای مورد نظر به لیست علاقه‌مندی‌ها اضافه شد" });
+            }
+            else
+                return Json(new { status = "warning", message = "این کالا قبلا در لیست علاقه‌مندی‌های شما اضافه شده است" });
         }
     }
 }

@@ -4,6 +4,13 @@
         <li class="dashboard text-center"><a asp-controller="Admin" asp-action="Index"><i class="fas fa-chalkboard"></i> داشبورد</a></li>
 
         <li class="mainli openul">
+            <a href="#"><i class="fas fa-caret-down"></i>اطلاعات کلی</a>
+            <ul>
+                <li><a asp-controller="Admin" asp-action="Index"><i class="far fa-address-card"></i> جزئیات</a></li>
+            </ul>
+        </li>
+
+        <li class="mainli openul">
             <a href="#"><i class="fas fa-caret-down"></i>مدیریت سفارشات</a>
             <ul>
                 <li><a asp-controller="UnmanagedOrders" asp-action="Index"><i class="far fa-address-card"></i> سفارشات پردازش نشده</a></li>

@@ -84,8 +84,17 @@
                             }
                         </div>
 
-
-                        <button id="btnAddToBasket" class="btn btn-success btn-lg mt-3">افزودن به سبد خرید</button>
+                        @if (User.IsInRole("Member"))
+                        {
+                            <button id="btnAddToBasket" class="btn btn-success btn-lg mt-3">افزودن به سبد خرید</button>
+                            <button id="btnWishlist" class="btn btn-dark btn-lg mt-3">افزودن به علاقه‌مندی‌ها</button>
+                        }
+                        else
+                        {
+                            <p>
+                                برای افزودن کالا به سبد خرید ابتدا <a asp-area="" asp-action="Login" asp-controller="Account">وارد</a> سایت شوید
+                            </p>
+                        }
                         <span class="d-none" id="id">@Model.ProductId</span>
                     </div>
                     @if (signInManager.IsSignedIn(User))
@@ -126,6 +135,7 @@
                         <div class="mb-1">
                             نوع حافظه : @Html.DisplayFor(Model => Model.RAMType)
                         </div>
+                        <qrcode alt="QR Code" content="@Context.Request.Host@Context.Request.Path" height="100px" width="100px" />
                     </div>
                 </div>
             </div>
@@ -135,15 +145,12 @@
 
     <div class="card-body">
 
-        <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+        <ul class="nav nav-tabs justify-content-center nav-fill" id="pills-tab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">نقد و بررسی</a>
+                <a class="nav-link active" id="pills-home-tab" data-toggle="tab" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">نقد و بررسی</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">مشخصات</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">نظرات کاربران</a>
+                <a class="nav-link" id="pills-profile-tab" data-toggle="tab" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">مشخصات</a>
             </li>
         </ul>
 
@@ -289,13 +296,6 @@
 
                 </div>
             </div>
-
-            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-
-            </div>
-
         </div>
-
-
     </div>
 </div>

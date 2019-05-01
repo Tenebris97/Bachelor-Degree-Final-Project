@@ -22,23 +22,43 @@
                     <div class="row justify-content-center">
                         <div class="col-md-3" id="userCount">
                             <h4 class="p-1 m-1"><i class="fas fa-users"></i> تعداد کاربران</h4>
-                            <p class="p-1 m-1" style="font-size: 22px;">@ViewBag.userCount نفر</p>
+                            <p class="p-1 m-1 text-white" style="font-size: 22px;">@ViewBag.userCount نفر</p>
                         </div>
                         <div class="col-md-3" id="productCount">
                             <h4 class="p-1 m-1"><i class="fas fa-box"></i> تعداد کالاها</h4>
-                            <p class="p-1 m-1" style="font-size: 22px;">@ViewBag.ProductCount عدد</p>
+                            <p class="p-1 m-1 text-white" style="font-size: 22px;">@ViewBag.ProductCount عدد</p>
+                        </div>
+                        <div class="col-md-5" id="productCount">
+                            <h4 class="p-1 m-1"><i class="far fa-gem"></i> تعداد پیشنهادات شگفت‌انگیز</h4>
+                            <p class="p-1 m-1 text-white" style="font-size: 22px;">@ViewBag.PromotionCount عدد</p>
+                        </div>
+                        <div class="col-md-4" id="laptopCount">
+                            <h4 class="p-1 m-1"><i class="fas fa-laptop"></i> تعداد لپ‌تاپ‌های موجود</h4>
+                            <p class="p-1 m-1 text-white" style="font-size: 22px;">@ViewBag.LaptopCount دستگاه</p>
+                        </div>
+                        <div class="col-md-4" id="cellphoneCount">
+                            <h4 class="p-1 m-1"><i class="fas fa-mobile-alt"></i> تعداد گوشی‌های موبایل موجود</h4>
+                            <p class="p-1 m-1 text-white" style="font-size: 22px;">@ViewBag.CellphoneCount دستگاه</p>
+                        </div>
+                        <div class="col-md-3" id="productCount">
+                            <h4 class="p-1 m-1"><i class="fas fa-money-bill"></i> مجموع فروش</h4>
+                            <p class="p-1 m-1 text-white" style="font-size: 22px;">@string.Format("{0:n0}", ViewBag.TotalSell) تومان</p>
+                        </div>
+                        <div class="col-md-3" id="productCount">
+                            <h4 class="p-1 m-1"><i class="fas fa-book"></i> مجموع تعداد سفارش‌ها</h4>
+                            <p class="p-1 m-1 text-white" style="font-size: 22px;">@ViewBag.TotalOrder سفارش</p>
                         </div>
                         <div class="col-md-4" id="productCount">
-                            <h4 class="p-1 m-1"><i class="far fa-gem"></i> تعداد پیشنهادات شگفت‌انگیز</h4>
-                            <p class="p-1 m-1" style="font-size: 22px;">@ViewBag.PromotionCount عدد</p>
+                            <h4 class="p-1 m-1"><i class="far fa-money-bill-alt"></i> مجموع فروش امروز</h4>
+                            <p class="p-1 m-1 text-white" style="font-size: 22px;">@string.Format("{0:n0}", ViewBag.TodaySell) تومان</p>
                         </div>
-                        <div class="col-md-5" id="laptopCount">
-                            <h4 class="p-1 m-1"><i class="fas fa-laptop"></i> تعداد لپ‌تاپ‌های موجود</h4>
-                            <p class="p-1 m-1" style="font-size: 22px;">@ViewBag.LaptopCount دستگاه</p>
+                        <div class="col-md-4" id="productCount">
+                            <h4 class="p-1 m-1"><i class="fas fa-check-square"></i> مجموع تعداد سفارش‌های امروز</h4>
+                            <p class="p-1 m-1 text-white" style="font-size: 22px;">@ViewBag.TodayOrder سفارش</p>
                         </div>
-                        <div class="col-md-5" id="cellphoneCount">
-                            <h4 class="p-1 m-1"><i class="fas fa-mobile-alt"></i> تعداد گوشی‌های موبایل موجود</h4>
-                            <p class="p-1 m-1" style="font-size: 22px;">@ViewBag.CellphoneCount دستگاه</p>
+                        <div class="col-md-4" id="productCount">
+                            <h4 class="p-1 m-1"><i class="fas fa-window-close"></i> تعداد سفارش‌های پردازش نشده</h4>
+                            <p class="p-1 m-1 text-white" style="font-size: 22px;">@ViewBag.Unprocessed سفارش</p>
                         </div>
                     </div>
                 </div>

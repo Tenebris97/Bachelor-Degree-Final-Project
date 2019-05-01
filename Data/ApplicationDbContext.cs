@@ -35,5 +35,6 @@ namespace FinalProject.Data
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Transaction> Transaction { get; set; }
+        public DbSet<Wishlist> Wishlist { get; set; }
     }
 }

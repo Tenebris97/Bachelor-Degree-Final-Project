@@ -17,7 +17,7 @@
 
 body {
     font-family: vazir-fd !important;
-    background-color: #d1d8e0 !important;
+    background-color: rgba(245,245,245,1.0) !important;
 }
 .marginButton{
     margin-bottom:10px;
@@ -30,7 +30,7 @@ body {
 
 /*Navbar*/
 #NavbraDefault {
-    border-bottom: 4px solid #fffdd0 !important;
+    border-bottom: 4px solid red !important;
 }
 
 #AddformHr {
@@ -47,11 +47,11 @@ body {
 
 #defaultHr {
     margin: 0 0 10px 0;
-    border: 1px solid #17a2b8;
+    border: 1px solid red;
 }
 
 #mainHr {
-    border: 2px double #343a40;
+    border: 2px double red;
     margin-bottom: 10px;
 }
 
@@ -88,9 +88,11 @@ body {
 }
 
 .News {
-    background: rgba(255,255,255,0.5);
-    border: 1px ridge #17a2b8;
-    padding: 15px;
+    background: rgba(255,255,255,1.0);
+    box-shadow: 2.5px 2.5px 5px gray;
+    border-radius: 2.5px;
+    padding: 16px;
+    margin-bottom: 16px;
 }
 
 .addformH {
@@ -128,26 +130,26 @@ body {
 
 #owl-promotion {
     direction: ltr !important;
-    padding: 30px;
-
 }
 
     #owl-promotion img {
         width: 200px;
         height: 200px;
         margin-left: 55px;
-        box-shadow: 2px 2px 5px 1px black;
         margin-bottom: 7px;
     }
 
     #owl-promotion a {
         color: black;
         text-align: center;
+        text-decoration: none;
     }
 
-        #owl-promotion a:hover {
-            color: blue;
-        }
+.float-right-top {
+    position: absolute;
+    right: 0;
+    top: 0;
+} 
 
 #btnLike{
     cursor: pointer;
@@ -156,3 +158,4 @@ body {
 #btnDislike {
     cursor: pointer;
 }
+

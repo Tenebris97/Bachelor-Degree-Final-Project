@@ -47,7 +47,7 @@
                 {
                     pricePercent = 0;
                 }
-                <div class="col-md-3 col-sm-6 mb-4">
+                <div class="col-md-3 col-sm-6 mb-4 ml-0 mr-0">
                     <div class="card bg-dark mb-3 w-100 h-100" id="tv">
                         <img class="w-100 h-100" src="@ViewBag.RootPath@item.ProductImage">
                         <div class="card-header text-white">
@@ -58,7 +58,7 @@
                             @if (item.ProductDiscount == 0)
                             {
                                 <div class="row text-center justify-content-center" style="max-height:36px !important; margin-top: 12px !important;">
-                                    <span class="text-white" style="font-size: 20px;">@string.Format("{0:n0}", @item.ProductPrice)  تومان</span>
+                                    <span class="text-white" style="font-size: 20px;">@string.Format("{0:n0}", item.ProductPrice)  تومان</span>
                                 </div>
                             }
                             else
@@ -66,7 +66,7 @@
                                 <div class="row text-center justify-content-center">
                                     <span class="text-white-50">
                                         <span style="text-decoration: line-through; font-size: 14px !important;">
-                                            @string.Format("{0:n0}", @item.ProductPrice)
+                                            @string.Format("{0:n0}", item.ProductPrice)
                                         </span>
                                         <span class="text-info">&nbsp; - &nbsp;</span>
                                         <span style="color:#fffdd0; font-size: 14px !important;">
@@ -75,7 +75,7 @@
                                     </span>
                                 </div>
                                 <div class="row text-center justify-content-center">
-                                    <span class="text-white" style="font-size: 20px;">@string.Format("{0:n0}", @finalPrice) تومان</span>
+                                    <span class="text-white" style="font-size: 20px;">@string.Format("{0:n0}", finalPrice) تومان</span>
                                 </div>
                             }
                         </div>

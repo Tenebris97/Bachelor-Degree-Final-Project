@@ -11,11 +11,11 @@
 }
 
 @section searchSection{
-    <form class="navbar-nav navbar-left mt-3 ml-3">
-        <div class="form-group form-inline">
-            <input type="text" id="txtSearch" name="txtSearch" class="form-control" placeholder="جستجو" />
-            <button asp-controller="Home" asp-action="Search" class="btn btn-default ml-2">جستجو  <i class="fas fa-search"></i></button>
+    <form class="form-inline ml-auto">
+        <div class="md-form my-0">
+            <input class="form-control" type="text" placeholder="جستجو..." aria-label="Search" id="txtSearch" name="txtSearch">
         </div>
+        <button asp-controller="Home" asp-action="Search" class="btn aqua-gradient waves-effect btn-rounded btn-md" type="submit">جستجو</button>
     </form>
 }
 
@@ -24,33 +24,57 @@
 }
 
 <div class="row">
+
     <div class="col-md-3">
         @Html.Partial("_RecentNewsPartial", Model.LastNews)
     </div>
+
     <div class="col-md-9">
-        @Html.Partial("_Promotion", Model.PromotionsListViewModel)
+        <div class="row">
+            <div class="col-md-12">
+                @Html.Partial("_Promotion", Model.PromotionsListViewModel)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @Html.Partial("_TopSelling", Model.TopSellings)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @Html.Partial("_MostViewd", Model.MostViewd)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @Html.Partial("_Cheapest", Model.Cheapest)
+            </div>
+        </div>
     </div>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(".owl-carousel").owlCarousel();
-        });
-        $('.owl-carousel').owlCarousel({
-            loop: true,
-            margin: 10,
-            nav: true,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                600: {
-                    items: 3
-                },
-                1000: {
-                    items: 5
-                }
+
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".owl-carousel").owlCarousel();
+    });
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 5
             }
-        });
-    </script>
+        }
+    });
+</script>
 </div>
 

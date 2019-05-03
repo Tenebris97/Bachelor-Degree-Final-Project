@@ -72,16 +72,6 @@ namespace FinalProject.Controllers
 
             var model = new MultiModels();
 
-            model.Comments = (from c in _context.comments
-                              join p in _context.products on c.ProductId equals p.ProductId
-                              where p.ProductId == id
-                              select new CommentListViewModel
-                              {
-                                  CommentId = c.CommentId,
-                                  CommentText = c.CommentText,
-                                  ProductId = c.ProductId,
-                                  UserId = _userManager.GetUserId(User)
-                              }).ToList();
 
             model.Product = (from p in _context.products where p.ProductId == id select p).SingleOrDefault();
             var categoryId = model.Product.CategoryId;
@@ -148,7 +138,7 @@ namespace FinalProject.Controllers
             {
                 model.CellphoneDetailViewModel = (from c in _context.cellphones
                                                   join p in _context.products on c.ProductId equals p.ProductId
-
+                                                  where p.ProductId == id
                                                   select new CellphoneDetailViewModel()
                                                   {
                                                       ProductId = p.ProductId,

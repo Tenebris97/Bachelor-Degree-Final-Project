@@ -11,22 +11,22 @@
         if (User.IsInRole("Member"))
         {
             <li class="nav-item">
-                <a class="nav-link text-white" asp-area="User" asp-controller="Manage" asp-action="Index">@UserManager.GetUserName(User)</a>
+                <a class="nav-link" asp-area="User" asp-controller="Manage" asp-action="Index">@UserManager.GetUserName(User)</a>
             </li>
         }
         <li class="nav-item">
             <form class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button type="submit" class="nav-link btn btn-link text-white">خروج</button>
+                <button type="submit" class="nav-link btn-outline-danger waves-effect">خروج</button>
             </form>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-white-50" asp-area="" asp-controller="Account" asp-action="Register">ثبت‌نام</a>
+            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">ثبت‌نام</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white-50" asp-area="" asp-controller="Account" asp-action="Login">ورود</a>
+            <a class="nav-link btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Login">ورود</a>
         </li>
     }
 </ul>

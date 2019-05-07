@@ -10,10 +10,9 @@ namespace FinalProject.Models.ViewModels
     {
         public int PromotionId { get; set; }
         public int ProductId { get; set; }
-        [Display(Name = "نام کالا")]
         public string ProductName { get; set; }
         public string ProductImage { get; set; }
-        [Display(Name = "دسته‌بندی")]
         public string Category { get; set; }
+        public int Price { get; set; }
     }
 }

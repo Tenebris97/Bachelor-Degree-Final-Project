@@ -1,0 +1,27 @@
+﻿@model IEnumerable<FinalProject.Models.ViewModels.Cheapest>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+
+
+<div class="News">
+
+    <h5 style="margin-top: 10px;" class="text-danger">ارزانترین محصولات</h5>
+    <hr />
+    <div>
+        <div class="owl-carousel owl-theme justify-content-center" id="owl-promotion">
+            @foreach (var item in Model)
+            {
+                <div style="margin:5px;" class="text-center justify-content-center view overlay zoom">
+                    <a class="justify-content-center text-center" asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId" target="_blank">
+                        <img src="@ViewBag.imagepath@item.ProductImage" class="img-fluid" />
+                        <span class="center-block">@item.ProductName</span>
+                        <p class="text-danger">@string.Format("{0:n0}", item.Price)</p>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

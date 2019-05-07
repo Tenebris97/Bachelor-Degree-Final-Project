@@ -15,15 +15,19 @@ namespace FinalProject.Models
         public List<Laptop> Laptop { get; set; }
         public List<Cellphone> Cellphone { get; set; }
         public List<Product> Products { get; set; }
-        public List<PromotionListViewModel> PromotionsListViewModel { get; set; }
         public Product Product { get; set; }
         public CellphoneDetailViewModel CellphoneDetailViewModel { get; set; }
         public LaptopDetailViewModel LaptopDetailViewModel { get; set; }
-        public List<CommentListViewModel> Comments { get; set; }
         public List<Product> SearchedProduct { get; set; }
         public List<Address> AllAddresses { get; set; }
         public Address Address { get; set; }
         public Transaction Transaction { get; set; }
 
+        /***********************************************/
+
+        public List<PromotionListViewModel> PromotionsListViewModel { get; set; }
+        public List<TopSelling> TopSellings { get; set; }
+        public List<MostViewd> MostViewd { get; set; }
+        public List<Cheapest> Cheapest { get; set; }
     }
 }

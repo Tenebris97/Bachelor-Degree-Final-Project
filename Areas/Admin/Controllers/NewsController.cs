@@ -123,7 +123,7 @@ namespace FinalProject.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 //Upload Image
-                var uploads = Path.Combine(_appEnvironment.WebRootPath, "upload\\normalimage\\");
+                var uploads = Path.Combine(_appEnvironment.WebRootPath, "upload/normalimage//");
                 foreach (var file in files)
                 {
                     if (file != null && file.Length > 0)
@@ -184,7 +184,7 @@ namespace FinalProject.Areas.Admin.Controllers
                 //dastoorate hazf tasvir az server
                 if (model.NewsImage != "defaultpic.png")
                 {
-                    var uploadsNormal = Path.Combine(_appEnvironment.WebRootPath, "upload\\normalimage\\") + model.NewsImage;
+                    var uploadsNormal = Path.Combine(_appEnvironment.WebRootPath, "upload/normalimage/") + model.NewsImage;
                     if (System.IO.File.Exists(uploadsNormal))
                         System.IO.File.Delete(uploadsNormal);
                 }

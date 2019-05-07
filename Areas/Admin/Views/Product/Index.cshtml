@@ -77,7 +77,7 @@
                                 <td class="text-center">@item.ProductStock</td>
                                 <td class="text-center">@item.ProductViews</td>
                                 <td class="text-center">@item.ProductLikeCount</td>
-                                <td class="text-center"><img src="@ViewBag.RootPath@item.ProductImage" /></td>
+                                <td class="text-center"><img src="@ViewBag.RootPath@item.ProductImage" style="height: 150px; width:150px;"/></td>
                                 <td class="text-center" style="max-width: 100px;">
                                     <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.ProductId">
                                         <i class="fas fa-edit"></i>

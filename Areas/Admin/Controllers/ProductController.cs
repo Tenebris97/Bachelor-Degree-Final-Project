@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using FinalProject.Data;
 using FinalProject.Models;
 using FinalProject.Models.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +18,6 @@ using ReflectionIT.Mvc.Paging;
 namespace FinalProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Policy = "RequireAdminRole")]
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -40,7 +38,7 @@ namespace FinalProject.Areas.Admin.Controllers
         public async Task<IActionResult> Index(int page = 1)
         {
             //LINQ to Query string
-            //Join on 2 tables
+            //Join on 3 tables
             var query = (from p in _context.products
                          join c in _context.categories on p.CategoryId equals c.CategoryId
 
@@ -60,7 +58,7 @@ namespace FinalProject.Areas.Admin.Controllers
                              ProductViews = p.ProductViews                            
                          }).AsNoTracking().OrderBy(p => p.ProductId);
 
-            ViewBag.RootPath = "/upload/thumbnailimage/";
+            ViewBag.RootPath = "/upload/normalimage/";
 
             var modelPaging = await PagingList.CreateAsync(query, 2, page);
             return View(modelPaging);
@@ -100,7 +98,7 @@ namespace FinalProject.Areas.Admin.Controllers
                     query.Where(m => m.ProductName.Contains(categorySearch)).OrderBy(p => p.ProductName), 2, page);
             }
 
-            ViewBag.RootPath = "/upload/thumbnailimage/";
+            ViewBag.RootPath = "/upload/normalimage/";
             return View("Index", modelPaging);
         }
 
@@ -164,7 +162,7 @@ namespace FinalProject.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 //Upload Image
-                var uploads = Path.Combine(_appEnvironment.WebRootPath, "upload\\normalimage\\");
+                var uploads = Path.Combine(_appEnvironment.WebRootPath, "upload/normalimage/");
                 foreach (var file in files)
                 {
                     if (file != null && file.Length > 0)
@@ -176,8 +174,8 @@ namespace FinalProject.Areas.Admin.Controllers
                             model.ProductImage = filename;
                         }
                         //Resize Images
-                        InsertShowImage.ImageResizer img = new InsertShowImage.ImageResizer();
-                        img.Resize(uploads + filename, _appEnvironment.WebRootPath + "\\upload\\thumbnailimage\\" + filename);
+                        //InsertShowImage.ImageResizer img = new InsertShowImage.ImageResizer();
+                        //img.Resize(uploads + filename, _appEnvironment.WebRootPath + "upload/thumbnailimage/" + filename);
                     }
                 }
                 /***********************/
@@ -238,11 +236,11 @@ namespace FinalProject.Areas.Admin.Controllers
                 if (model.ProductImage != "defaultpic.png")
                 {
 
-                    var uploadsNormal = Path.Combine(_appEnvironment.WebRootPath, "upload\\normalimage\\") + model.ProductImage;
+                    var uploadsNormal = Path.Combine(_appEnvironment.WebRootPath, "upload//normalimage//") + model.ProductImage;
                     if (System.IO.File.Exists(uploadsNormal))
                         System.IO.File.Delete(uploadsNormal);
 
-                    var uploadsThumb = Path.Combine(_appEnvironment.WebRootPath, "upload\\thumbnailimage\\") + model.ProductImage;
+                    var uploadsThumb = Path.Combine(_appEnvironment.WebRootPath, "upload//thumbnailimage//") + model.ProductImage;
                     if (System.IO.File.Exists(uploadsThumb))
                         System.IO.File.Delete(uploadsThumb);
                 }

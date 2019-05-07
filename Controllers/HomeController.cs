@@ -23,6 +23,9 @@ namespace FinalProject.Controllers
 
         public IActionResult Index()
         {
+            int lapId = (from c in _context.categories where c.Name.Contains("لپ") select c.CategoryId).SingleOrDefault();
+            int cellId = (from c in _context.categories where c.Name.Contains("گوشی") select c.CategoryId).SingleOrDefault();
+
             var model = new MultiModels();
             model.LastNews = (from n in _context.news orderby n.NewsId descending select n).Take(5).ToList();
 
@@ -81,10 +84,44 @@ namespace FinalProject.Controllers
                                   ProductImage = p.ProductImage
                               }).Take(5).ToList();
 
+            model.TopLaptop = (from p in _context.products
+                              orderby p.ProductId descending
+                              where p.CategoryId == lapId
+                              select new TopLaptop
+                              {
+                                  ProductName = p.ProductName,
+                                  ProductId = p.ProductId,
+                                  Price = p.ProductPrice,
+                                  ProductImage = p.ProductImage
+                              }).Take(5).ToList();
+
+            model.TopCellphone = (from p in _context.products
+                              orderby p.ProductId descending
+                              where p.CategoryId == cellId
+                              select new TopCellphone
+                              {
+                                  ProductName = p.ProductName,
+                                  ProductId = p.ProductId,
+                                  Price = p.ProductPrice,
+                                  ProductImage = p.ProductImage
+                              }).Take(5).ToList();                  
+
             ViewBag.imagepath = "/upload/normalimage/";
             return View(model);
         }
 
+        public IActionResult Search(string txtSearch)
+        {
+            var model = new MultiModels();
+            model.LastNews = (from n in _context.news orderby n.NewsId descending select n).Take(5).ToList();
+            model.Products = (from p in _context.products 
+                                where p.ProductName.Contains(txtSearch)
+                                || p.ProductBrand.Contains(txtSearch)
+                                orderby p.ProductId descending select p).ToList();
+            ViewBag.imagepath = "/upload/normalimage/";
+            ViewBag.Search = txtSearch;
+            return View(model);                     
+        }
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

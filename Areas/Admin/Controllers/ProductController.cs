@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FinalProject.Data;
 using FinalProject.Models;
 using FinalProject.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,7 @@ using ReflectionIT.Mvc.Paging;
 namespace FinalProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Policy = "RequireAdminRole")]
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;

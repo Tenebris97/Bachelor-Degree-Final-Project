@@ -14,9 +14,9 @@ namespace FinalProject.Models
 
         public string Description { get; set; }
         public string Size { get; set; }
-        public int Weight { get; set; }
+        public string Weight { get; set; }
         public string SimcardDesc { get; set; }
-        public int SimcardCount { get; set; }
+        public string SimcardCount { get; set; }
 
         public string CpuChipset { get; set; }
         public string CpuCore { get; set; }
@@ -24,9 +24,9 @@ namespace FinalProject.Models
         public string CpuFrequency { get; set; }
         public string GPU { get; set; }
 
-        public int RAM { get; set; }
-        public int Storage { get; set; }
-        public int StorageSupport { get; set; }
+        public string RAM { get; set; }
+        public string Storage { get; set; }
+        public string StorageSupport { get; set; }
         public string StorageType { get; set; }
 
         public string ScreenType { get; set; }

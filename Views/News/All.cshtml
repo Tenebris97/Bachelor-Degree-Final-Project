@@ -1,0 +1,48 @@
+@model ReflectionIT.Mvc.Paging.PagingList<FinalProject.Models.News>
+@using ReflectionIT.Mvc.Paging;
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "کلیه اطلاعیه‌ها";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section basket{
+    @Html.Partial("_Basket")
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-auto">
+        <div class="card bg-info">
+            <div class="card-body">
+                <table class="table table-striped table-bordered table-hover table-dark ">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.NewsTitle)</th>
+                            <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.NewsDate)</th>
+                            <th class="text-center" scope="col">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">@item.NewsTitle</td>
+                                <td class="text-center">@item.NewsDate</td>
+                                <td class="text-center">
+                                    <a class="text-info" asp-controller="News" asp-action="Index" asp-route-id="@item.NewsId">مشاهده</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <nav class="text-center">
+                    @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</div>

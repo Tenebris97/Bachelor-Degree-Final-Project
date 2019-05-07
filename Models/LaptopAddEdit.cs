@@ -22,7 +22,7 @@ namespace FinalProject.Models
         public string Size { get; set; }
 
         [Display(Name = "وزن")]
-        public int Weight { get; set; }
+        public string Weight { get; set; }
 
         //پردازنده مرکزی
         [Display(Name = "سازنده پردازنده")]
@@ -38,7 +38,7 @@ namespace FinalProject.Models
         public string CpuType { get; set; }
 
         [Display(Name = "حافظه Cache")]
-        public int CpuCache { get; set; }
+        public string CpuCache { get; set; }
 
         [Display(Name = "فرکانس پردازنده")]
         [Required(ErrorMessage = "لطفا فرکانس پردازنده را وارد کنید")]
@@ -47,7 +47,7 @@ namespace FinalProject.Models
         //RAM
         [Display(Name = "ظرفیت حافظه RAM")]
         [Required(ErrorMessage = "لطفا ظرفیت حافظه RAM را وارد کنید")]
-        public int RAM { get; set; }
+        public string RAM { get; set; }
 
         [Display(Name = "نوع حافظه RAM")]
         [Required(ErrorMessage = "لطفا نوع حافظه RAM را وارد کنید")]

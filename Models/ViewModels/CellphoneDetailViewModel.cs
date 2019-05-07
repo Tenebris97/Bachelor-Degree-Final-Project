@@ -21,13 +21,13 @@ namespace FinalProject.Models.ViewModels
         public string Size { get; set; }
 
         [Display(Name = "وزن")]
-        public int Weight { get; set; }
+        public string Weight { get; set; }
 
         [Display(Name = "توصیحات سیمکارت")]
         public string SimcardDesc { get; set; }
 
         [Display(Name = "تعداد سیمکارت")]
-        public int SimcardCount { get; set; }
+        public string SimcardCount { get; set; }
 
         [Display(Name = "تراشه")]
         public string CpuChipset { get; set; }
@@ -46,13 +46,13 @@ namespace FinalProject.Models.ViewModels
 
         //حافظه
         [Display(Name = "مقدار RAM")]
-        public int RAM { get; set; }
+        public string RAM { get; set; }
 
         [Display(Name = "حافظه داخلی")]
-        public int Storage { get; set; }
+        public string Storage { get; set; }
 
         [Display(Name = "حداکثر ظرفیت کارت حافظه")]
-        public int StorageSupport { get; set; }
+        public string StorageSupport { get; set; }
 
         [Display(Name = "پشتیبانی از کارت حافظه جانبی")]
         public string StorageType { get; set; }

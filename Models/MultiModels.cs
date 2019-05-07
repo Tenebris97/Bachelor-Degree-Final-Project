@@ -29,5 +29,7 @@ namespace FinalProject.Models
         public List<TopSelling> TopSellings { get; set; }
         public List<MostViewd> MostViewd { get; set; }
         public List<Cheapest> Cheapest { get; set; }
+        public List<TopLaptop> TopLaptop { get; set; }
+        public List<TopCellphone> TopCellphone { get; set; }
     }
 }

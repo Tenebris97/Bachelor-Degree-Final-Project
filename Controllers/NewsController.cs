@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinalProject.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 
 namespace FinalProject.Controllers
 {
@@ -35,6 +37,14 @@ namespace FinalProject.Controllers
             return View(news);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> All(int page = 1)
+        {
+            var news = (from n in _context.news select n).AsNoTracking().OrderBy(n => n.NewsId);
+
+            var modelPaging = await PagingList.CreateAsync(news, 10, page);
+            return View(modelPaging);
+        }
         public IActionResult NotFounds()
         {
             return View("NotFounds");

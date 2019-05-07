@@ -21,14 +21,14 @@ namespace FinalProject.Models
         public string Size { get; set; }
 
         [Display(Name = "وزن")]
-        public int Weight { get; set; }
+        public string Weight { get; set; }
 
         [Display(Name = "توصیحات سیمکارت")]
         [Required(ErrorMessage = "لطفا توصیحات سیمکارت را وارد کنید")]
         public string SimcardDesc { get; set; }
 
         [Display(Name = "تعداد سیمکارت")]
-        public int SimcardCount { get; set; }
+        public string SimcardCount { get; set; }
 
         [Display(Name = "تراشه")]
         [Required(ErrorMessage = "لطفا تراشه را وارد کنید")]
@@ -53,15 +53,15 @@ namespace FinalProject.Models
         //حافظه
         [Display(Name = "مقدار RAM")]
         [Required(ErrorMessage = "لطفا مقدار RAM را وارد کنید")]
-        public int RAM { get; set; }
+        public string RAM { get; set; }
 
         [Display(Name = "حافظه داخلی")]
         [Required(ErrorMessage = "لطفا حافظه داخلی را وارد کنید")]
-        public int Storage { get; set; }
+        public string Storage { get; set; }
 
         [Display(Name = "حداکثر ظرفیت کارت حافظه")]
         [Required(ErrorMessage = "لطفا حداکثر ظرفیت کارت حافظه را وارد کنید")]
-        public int StorageSupport { get; set; }
+        public string StorageSupport { get; set; }
 
         [Display(Name = "پشتیبانی از کارت حافظه جانبی")]
         [Required(ErrorMessage = "لطفا پشتیبانی از کارت حافظه جانبی را وارد کنید")]

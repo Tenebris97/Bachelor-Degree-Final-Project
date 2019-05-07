@@ -283,10 +283,17 @@
                 //وقتی اطلاعات سمت سرور رفت و جواب گرفتیم
             }).done(function (res) {
                     if (res.status === "success") {
-                        alert(res.message);
-
-                        //برای برگشتن به ایندکس بعد از ادیت یا ثبت
-                        window.location.href = '@Url.Action("Index", "Cellphone")';
+                                                 swal({
+                            title: "گوشی موبایل",
+                            text: res.message,
+                            icon: "success",
+                            button: "ادامه"
+                        })
+                            .then((a) => {
+                                if (a) {
+                                    window.location.href = '@Url.Action("Index", "Cellphone")';
+                                }
+                            });  
                     }
                     else {
                         $.each(res.error, function (a, b) {

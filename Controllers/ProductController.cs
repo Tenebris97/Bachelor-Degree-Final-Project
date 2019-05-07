@@ -69,9 +69,10 @@ namespace FinalProject.Controllers
             {
                 return RedirectToAction("NotFounds");
             }
+            int soldCount = _context.OrderDetails.Where(p => p.ProductId == id).Count();
+            ViewBag.SoldCount = soldCount;
 
             var model = new MultiModels();
-
 
             model.Product = (from p in _context.products where p.ProductId == id select p).SingleOrDefault();
             var categoryId = model.Product.CategoryId;
@@ -200,11 +201,10 @@ namespace FinalProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Search(string productSearch, string categorySearch, int page = 1)
+        public async Task<IActionResult> Search(string productSearch, int page = 1)
         {
             var query = (from p in _context.products
                          join c in _context.categories on p.CategoryId equals c.CategoryId
-
                          select new ProductListViewModel()
                          {
                              CategoryId = c.CategoryId,
@@ -227,11 +227,6 @@ namespace FinalProject.Controllers
             {
                 modelPaging = await PagingList.CreateAsync(
                     query.Where(m => m.ProductName.Contains(productSearch)).OrderBy(p => p.ProductId), 10, page);
-            }
-            if (categorySearch != null)
-            {
-                modelPaging = await PagingList.CreateAsync(
-                    query.Where(m => m.ProductName.Contains(categorySearch)).OrderBy(p => p.ProductName), 10, page);
             }
 
             ViewBag.RootPath = "/upload/normalimage/";

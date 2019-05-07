@@ -212,7 +212,7 @@ namespace FinalProject.Areas.Admin.Controllers
                         db.cellphones.Add(cellphoneModel);
                         db.SaveChanges();
                     }
-                    return Json(new { status = "success", message = "جزییات لپ‌تاپ با موفقیت ثبت شد" });
+                    return Json(new { status = "success", message = "جزییات گوشی موبایل با موفقیت ثبت شد" });
                 }
                 else
                 {
@@ -223,7 +223,7 @@ namespace FinalProject.Areas.Admin.Controllers
                         db.cellphones.Update(cellphoneModel);
                         db.SaveChanges();
                     }
-                    return Json(new { status = "success", message = "جزییات لپ‌تاپ  با موفقیت ویراش شد" });
+                    return Json(new { status = "success", message = "جزییات گوشی موبایل با موفقیت ویراش شد" });
                 }
             }
 

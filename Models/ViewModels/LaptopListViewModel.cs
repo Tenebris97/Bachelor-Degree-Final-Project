@@ -22,7 +22,7 @@ namespace FinalProject.Models.ViewModels
         public string Size { get; set; }
 
         [Display(Name = "وزن")]
-        public int Weight { get; set; }
+        public string Weight { get; set; }
 
         //پردازنده مرکزی
         [Display(Name = "سازنده پردازنده")]
@@ -35,14 +35,14 @@ namespace FinalProject.Models.ViewModels
         public string CpuType { get; set; }
 
         [Display(Name = "حافظه Cache")]
-        public int CpuCache { get; set; }
+        public string CpuCache { get; set; }
 
         [Display(Name = "فرکانس پردازنده")]
         public string CpuFrequency { get; set; }
 
         //RAM
         [Display(Name = "ظرفیت حافظه RAM")]
-        public int RAM { get; set; }
+        public string RAM { get; set; }
 
         [Display(Name = "نوع حافظه RAM")]
         public string RAMType { get; set; }

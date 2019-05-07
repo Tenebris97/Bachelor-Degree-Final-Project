@@ -30,7 +30,6 @@ namespace FinalProject.Data
         public DbSet<Laptop> laptops { get; set; }
         public DbSet<Cellphone> cellphones { get; set; }
         public DbSet<Promotion> promotion { get; set; }
-        public DbSet<Comment> comments { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }

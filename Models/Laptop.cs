@@ -16,17 +16,17 @@ namespace FinalProject.Models
 
         //مشخصات فیزیکی
         public string Size { get; set; }
-        public int Weight { get; set; }
+        public string Weight { get; set; }
 
         //پردازنده مرکزی
         public string CpuManufactor { get; set; }
         public string CpuSeries { get; set; }
         public string CpuType { get; set; }
-        public int CpuCache { get; set; }
+        public string CpuCache { get; set; }
         public string CpuFrequency { get; set; }
 
         //RAM
-        public int RAM { get; set; }
+        public string RAM { get; set; }
         public string RAMType { get; set; }
 
         //حافظه داخلی

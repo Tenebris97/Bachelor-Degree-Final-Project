@@ -14,15 +14,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section searchSection{
-    <form class="navbar-nav navbar-left mt-3 ml-3">
-        <div class="form-group form-inline">
-            <input type="text" id="txtSearch" name="txtSearch" class="form-control" placeholder="جستجو" />
-            <button asp-controller="Home" asp-action="Search" class="btn btn-default ml-2">جستجو  <i class="fas fa-search"></i></button>
-        </div>
-    </form>
-}
-
 @section basket{
     @Html.Partial("_Basket")
 }

@@ -5,29 +5,29 @@
 
 
 
-<div class="row align-content-center justify-content-center">
+<div class="row align-content-center justify-content-center text-center">
     <div class="col-md-4">
         <h2>@ViewData["Title"]</h2>
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-            <h4>ساخت حساب کاربری جدید</h4>
+            <h6>ساخت حساب کاربری جدید</h6>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Email"></label>
+                <label asp-for="Email" class="float-right"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password"></label>
+                <label asp-for="Password" class="float-right"></label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
+                <label asp-for="ConfirmPassword" class="float-right"></label>
                 <input asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">ثبت‌نام</button>
+            <button type="submit" class="btn btn-primary w-100">ثبت‌نام</button>
         </form>
     </div>
 </div>

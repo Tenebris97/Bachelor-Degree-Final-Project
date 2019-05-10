@@ -73,7 +73,8 @@
                                     }
                                     <td class="text-center">@string.Format("{0:n0}", item.Price)</td>
                                     <td class="text-center">
-                                        <a target="_blank" asp-action="Details" asp-area="User" asp-controller="Orders" asp-route-id="@item.OrderId">مشاهده</a>
+                                        <a target="_blank" asp-action="Details" asp-area="User"
+                                         asp-controller="Orders" asp-route-id="@item.OrderId" class="text-default">مشاهده</a>
                                     </td>
                                 </tr>
                             }

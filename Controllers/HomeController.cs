@@ -124,9 +124,8 @@ namespace FinalProject.Controllers
         }
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            var model = _context.AboutUs.FirstOrDefault();
+            return View(model);
         }
 
         public IActionResult Contact()

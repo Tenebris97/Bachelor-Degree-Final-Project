@@ -47,7 +47,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a  asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">فروشگاه اینترنتی</a>
+                <a  asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">فروشگاه</a>
             </div>
             <div class="rtl navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
 
@@ -77,27 +77,78 @@
             <!--Search-->
                 <form class="form-inline ml-auto">
                     <div class="md-form my-0">
-                        <input class="form-control" type="text" placeholder="جستجو..." aria-label="Search" id="txtSearch" name="txtSearch">
+                        <input style="width: 300px;" class="form-control" type="text" placeholder="نام کالا، دسته بندی و یا برند را جستجو کنید..." aria-label="Search" id="txtSearch" name="txtSearch">
                     </div>
-                    <button asp-area="" asp-controller="Product" asp-action="Search" class="btn aqua-gradient waves-effect btn-rounded btn-md" type="submit">جستجو</button>
+                    <button asp-area="" asp-controller="Product" asp-action="Search" class="btn blue-gradient waves-effect btn-rounded btn-md" type="submit">
+                      <i class="fas fa-search"></i>
+                    </button>
                 </form>
             @RenderSection("basket", false)
-
         </div>
     </nav>
-    <!--baghie view haE ke az _Layout estefade mikonn mian inja-->
+
     <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <!--Footer
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2019 - فروشگاه اینترنتی
+  <!-- Footer -->
+  <footer class="page-footer font-small stylish-color-dark pt-4">
+      <div class="container text-center text-md-left">
+        <div class="row">
+          <div class="col-md-12 mx-auto">
+            <h5 class="font-weight-bold text-uppercase mt-3 mb-4">فروشگاه اینترنتی دیجی‌کالا، بررسی، انتخاب و خرید آنلاین</h5>
+            <p>دیجی‌کالا به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش از یک دهه تجربه، با پایبندی به سه اصل کلیدی، پرداخت در محل، 7 روز ضمانت بازگشت کالا و تضمین اصل‌بودن کالا، موفق شده تا همگام با فروشگاه‌های معتبر جهان، به بزرگ‌ترین فروشگاه اینترنتی ایران تبدیل شود. به محض ورود به دیجی‌کالا با یک سایت پر از کالا رو به رو می‌شوید! هر آنچه که نیاز دارید و به ذهن شما خطور می‌کند در اینجا پیدا خواهید کرد</p>
+          </div>
+          <div class="col-md-4 mx-auto text-center">
+            <p>هفت روز هفته ، ۲۴ ساعت شبانه‌روز پاسخگوی شما هستیم</p>
+          </div>
+          <div class="col-md-4 mx-auto text-center">
+            <p>شماره تماس: ۰۲۱-۹۶۵۱۱۹۰ و ۰۲۱-۶۱۹۳۰۰۰۰</p>
+          </div>
+          <div class="col-md-4 mx-auto text-center">
+            <p>آدرس ایمیل: customer.service.1397.1398@gmail.com</p>
+          </div>
         </div>
-    </footer>-->
+      </div>
+      <hr>
+      <!-- Social buttons -->
+      <ul class="list-unstyled list-inline text-center">
+        <li class="list-inline-item">
+          <a class="btn-floating btn-fb mx-1">
+            <i class="fab fa-facebook-f fa-2x"> </i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn-floating btn-tw mx-1">
+            <i class="fab fa-twitter fa-2x"> </i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn-floating btn-gplus mx-1">
+            <i class="fab fa-google-plus-g fa-2x"> </i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn-floating btn-li mx-1">
+            <i class="fab fa-linkedin-in fa-2x"> </i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="btn-floating btn-dribbble mx-1">
+            <i class="fab fa-dribbble fa-2x"> </i>
+          </a>
+        </li>
+      </ul>
+      <!-- Social buttons -->
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 1398
+        <a href="#">فروشگاه اینترنتی</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+<!-- Footer -->
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

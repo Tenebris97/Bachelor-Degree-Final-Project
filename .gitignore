@@ -1,2 +1,4 @@
 bin/
 obj/
+libwkhtmltox.dylib
+libwkhtmltox.dll

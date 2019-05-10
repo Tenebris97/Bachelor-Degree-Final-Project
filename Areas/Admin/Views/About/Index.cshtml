@@ -1,0 +1,103 @@
+@model FinalProject.Models.AboutUs
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, FinalProject
+
+@{
+    ViewData["Title"] = "ثبت درباره ما";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">خانه</a></li>
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Admin" asp-action="Index"> پنل ادمین</a></li>
+    <li class="breadcrumb-item active"> ثبت درباره ما</li>
+</ol>
+<div class="row">
+    @Html.Partial("_AdminPanel")
+
+        <input asp-for="AboutId" class="form-control" type="hidden" />
+
+        <!--Editor-->
+        <div class="form-row col-md-9 justify-content-center text-center">
+
+            <div class="form-group col-md-12">
+                <label asp-for="FullText" class="control-label"></label>
+                <div>
+                    <textarea id="FullText" name="FullText" asp-for="FullText" class="form-control"></textarea>
+                    <span asp-validation-for="FullText" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-outline-success" id="submitData">
+                        ثبت
+                        <i class="fas fa-check"></i>
+                    </button>
+
+                    <a class="btn btn-outline-secondary" asp-action="Index">
+                        بازگشت
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+        </div>  
+        <input type="hidden" name="redirectUrl" value="@Url.Action("Index", "About")" />
+</div>
+@section scripts
+    {
+    <script src="~/js/ckeditor/ckeditor.js"></script>
+    <script src="~/js/adminpanel.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace("FullText");
+    </script>
+
+    <script>
+        $(document).on('click', '#submitData', function (evt) {
+            evt.preventDefault();
+
+            var data = new FormData();
+
+            //دریافت مقادیر موجود
+            $('input').each(function (x, y) {
+                data.append($(y).attr('name'), $(y).val());
+            });
+
+            //دریافت مقادیر ادیتور
+            var editorValue = CKEDITOR.instances['FullText'].getData();
+            data.append('FullText', editorValue);
+
+            //ارسال به سمت سرور
+            $.ajax({
+                type: "post",
+                url:'@Url.Action("Index","About",new { area = "Admin" })',
+                contentType: false,
+                processData: false,
+                data: data
+                //وقتی اطلاعات سمت سرور رفت و جواب گرفتیم
+            }).done(function (res) {
+                    if (res.status === "success") {
+                         swal({
+                            title: "درباره ما",
+                            text: res.message,
+                            icon: "success",
+                            button: "ادامه"
+                        })
+                            .then((a) => {
+                                if (a) {
+                                    window.location.href = '@Url.Action("Index", "About")';
+                                }
+                            });              
+                    }
+                    else {
+                        $.each(res.error, function (a, b) {
+                            alert(b);
+                        });
+                    }
+                    //برای وقتی که اطلاعات سمت سرور نرفت و در همان ابتدا خطا داد
+                }).fail(function (xhr, b, error) {
+                    swal("Oops", error, "error");
+                })
+        });
+    </script>
+}

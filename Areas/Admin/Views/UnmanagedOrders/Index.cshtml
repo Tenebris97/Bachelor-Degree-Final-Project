@@ -26,7 +26,7 @@
             </div>
             <div class="card-body">
                 <div class="card-body">
-                    <table class="table table-striped table-bordered table-hover table-dark ">
+                    <table class="table table-striped table-hover table-dark ">
                         <thead>
                             <tr>
                                 <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.OrderId)</th>
@@ -42,7 +42,8 @@
                             {
                                 <tr>
                                     <td class="text-center">
-                                        <a target="_blank" id="orderId" asp-area="Admin"  asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderId">@item.OrderId</a>
+                                        <a target="_blank" id="orderId" asp-area="Admin"  asp-controller="Orders" 
+                                        asp-action="Details" asp-route-id="@item.OrderId" class="text-default">@item.OrderId</a>
                                     </td>
                                     <td class="text-center">@item.OrderDate</td>
                                     <td class="text-center">@item.DeliveryDate</td>
@@ -57,10 +58,10 @@
                                     <td class="text-center">@string.Format("{0:n0}", item.Price)</td>
                                     <td class="text-center">
                                         <div class="form-group">
-                                            <a id="btnDelivered" class="btn btn-success">تحویل داده شد</a>
+                                            <a id="btnDelivered" class="btn btn-success w-100">تحویل داده شد</a>
                                         </div>
                                         <div class="form-group">
-                                            <a id="btnCanceled" class="btn btn-danger">لغو سفارش</a>
+                                            <a id="btnCanceled" class="btn btn-danger w-100">لغو سفارش</a>
                                         </div>
                                     </td>
                                 </tr>

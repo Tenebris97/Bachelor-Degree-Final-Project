@@ -18,11 +18,7 @@
 <hr />
 
 <div class="row">
-    <div class="col-md-3">
-        @Html.Partial("_ProductSearch")
-    </div>
-
-    <div class="col-md-9">
+    <div class="col-md-12">
         <div class="card-deck">
             @foreach (var item in Model)
             {
@@ -38,9 +34,7 @@
                 {
                     pricePercent = 0;
                 }
-                <div class="col-md-3 col-sm-6 mb-4 ml-0 mr-0 p-0">
-
-                    
+                <div class="col-md-3 col-sm-6 mb-4 ml-0 mr-0 p-0">                   
                     <div class="card blue-gradient waves-light mb-3 view overlay zoom" id="tv">
                         <a class="text-dark" asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">
                             <img style="height: 300px; width: 100%;" src="@ViewBag.RootPath@item.ProductImage" class="img-fluid">
@@ -74,8 +68,6 @@
                             </div>
                         </a>
                     </div>
-
-
                 </div>
             }
         </div>

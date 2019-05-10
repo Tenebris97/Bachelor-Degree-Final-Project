@@ -9,12 +9,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<ol class="breadcrumb bg-transparent">
-    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">خانه</a></li>
-    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Admin" asp-action="Index"> پنل کاربری</a></li>
-    <li class="breadcrumb-item active"> جزئیات سفارش</li>
-</ol>
-
 @section basket{
     @Html.Partial("_Basket")
 }

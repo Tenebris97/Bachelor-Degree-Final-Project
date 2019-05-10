@@ -22,6 +22,7 @@
             <div class="card-header">
                 <h5>شماره سفارش: @Model.FirstOrDefault().OrderId</h5>
                 <h5>نام مشتری: @Model.FirstOrDefault().CustomerName</h5>
+                <a class="btn btn-secondary" asp-action="Print" asp-controller="Orders" asp-route-id="@Model.FirstOrDefault().OrderId">صدور فاکتور</a>
             </div>
             <div class="card-body">
 

@@ -37,6 +37,9 @@ namespace FinalProject.Models.ViewModels
         [Display(Name = "نام مشتری")]
         public string CustomerName { get; set; }
 
+        [Display(Name = "آدرس")]
+        public string Address { get; set; }
+
         public int ProductId { get; set; }
     }
 }

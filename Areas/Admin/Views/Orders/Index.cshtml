@@ -26,7 +26,7 @@
             </div>
             <div class="card-body">
                 <div class="card-body">
-                    <table class="table table-striped table-bordered table-hover table-dark ">
+                    <table class="table table-striped table-hover table-dark ">
                         <thead>
                             <tr>
                                 <th class="text-center" scope="col">@Html.DisplayNameFor(model => model.OrderId)</th>
@@ -42,7 +42,9 @@
                             {
                             <tr>
                                 <td class="text-center">
-                                    <a target="_blank" id="orderId" asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderId">@item.OrderId</a>
+                                    <a target="_blank" id="orderId" asp-area="Admin" 
+                                    asp-controller="Orders" asp-action="Details" 
+                                    asp-route-id="@item.OrderId" class="text-default">@item.OrderId</a>
                                 </td>
                                 <td class="text-center">@item.OrderDate</td>
                                 @if (item.DeliveryDate == null)

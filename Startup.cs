@@ -16,6 +16,8 @@ using RequireConfirmedEmail.Entities;
 using AutoMapper;
 using ReflectionIT.Mvc.Paging;
 using Microsoft.AspNetCore.Mvc.Razor;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 
 namespace FinalProject
 {
@@ -52,6 +54,9 @@ namespace FinalProject
             services.AddMvc();
 
             services.AddAutoMapper();
+
+            //HtmlToPdf
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             //baraye estefade az paging
             services.AddPaging(options => {

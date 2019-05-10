@@ -77,5 +77,37 @@ namespace FinalProject.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Print(int id)
+        {
+            if (id == 0)
+            {
+                return RedirectToAction("NotFounds");
+            }
+
+            var model = (from order in _context.Order
+                         join orderDetails in _context.OrderDetails on order.OrderId equals orderDetails.OrderId
+                         join product in _context.products on orderDetails.ProductId equals product.ProductId
+                         join user in _context.Users on orderDetails.UserId equals user.Id
+                         join address in _context.Address on user.Id equals address.UserId
+                         where order.OrderId == id
+                         select new OrderDetailListViewModel()
+                         {
+                             OrderId = order.OrderId,
+                             ProductName = product.ProductName,
+                             Price = order.Price,
+                             ProductPrice = product.ProductPrice,
+                             DeliveryDate = order.DeliveryDate,
+                             OrderDate = order.OrderDate,
+                             Status = order.Flag,
+                             Discount = product.ProductDiscount,
+                             ProductId = product.ProductId,
+                             CustomerName = user.FirstName + " " + user.LastName,
+                             Address = address.FullAddress
+                         }).ToList();
+
+            return View(model);
+        }
     }
 }

@@ -10,12 +10,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<ol class="breadcrumb bg-transparent">
-    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">خانه</a></li>
-    <li class="breadcrumb-item"><a asp-area="User" asp-controller="Manage" asp-action="Index"> پنل کاربری</a></li>
-    <li class="breadcrumb-item active"> کلیه تراکنش‌ها</li>
-</ol>
-
 <div class="row">
     @Html.Partial("_UserPanel")
 
@@ -41,7 +35,8 @@
                             {
                                 <tr>
                                     <td class="text-center">
-                                        <a target="_blank" id="orderId" asp-area="User" asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderId">@item.OrderId</a>
+                                        <a target="_blank" id="orderId" asp-area="User" asp-controller="Orders" 
+                                        asp-action="Details" asp-route-id="@item.OrderId" class="text-default">@item.OrderId</a>
                                     </td>
                                     <td class="text-center">@item.TransactionNo</td>
                                     <td class="text-center">@item.TransactionDate</td>

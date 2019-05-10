@@ -201,10 +201,19 @@ namespace FinalProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Search(string productSearch, int page = 1)
+        public async Task<IActionResult> Search(string txtSearch, int page = 1)
         {
-            var query = (from p in _context.products
+            System.Diagnostics.Debug.WriteLine("****************");
+            System.Diagnostics.Debug.WriteLine(txtSearch);
+            System.Diagnostics.Debug.WriteLine("****************");
+            if(txtSearch == null)
+                return View("Index");
+            else
+            {
+                var query = (from p in _context.products
                          join c in _context.categories on p.CategoryId equals c.CategoryId
+                         where p.ProductBrand.Contains(txtSearch) || p.ProductName.Contains(txtSearch) 
+                         || c.Name.Contains(txtSearch)
                          select new ProductListViewModel()
                          {
                              CategoryId = c.CategoryId,
@@ -221,17 +230,12 @@ namespace FinalProject.Controllers
                              ProductViews = p.ProductViews
                          }).AsNoTracking().OrderBy(p => p.ProductId);
 
-            var modelPaging = await PagingList.CreateAsync(query, 2, page);
+                var modelPaging = await PagingList.CreateAsync(query, 10, page);
 
-            if (productSearch != null)
-            {
-                modelPaging = await PagingList.CreateAsync(
-                    query.Where(m => m.ProductName.Contains(productSearch)).OrderBy(p => p.ProductId), 10, page);
+                ViewBag.RootPath = "/upload/normalimage/";
+                ViewBag.ViewTitle = "نتایج جستجو";
+                return View("Index", modelPaging);
             }
-
-            ViewBag.RootPath = "/upload/normalimage/";
-            ViewBag.ViewTitle = "نتایج جستجو";
-            return View("Index", modelPaging);
         }
 
         public IActionResult NotFounds()

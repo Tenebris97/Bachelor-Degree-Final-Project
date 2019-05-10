@@ -11,22 +11,28 @@
         if (User.IsInRole("Member"))
         {
             <li class="nav-item">
-                <a class="nav-link" asp-area="User" asp-controller="Manage" asp-action="Index">@UserManager.GetUserName(User)</a>
+                <a class="nav-link btn-outline-dark waves-effect" asp-area="User" asp-controller="Manage" asp-action="Index">پروفایل</a>
             </li>
         }
         <li class="nav-item">
             <form class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button type="submit" class="nav-link btn-outline-danger waves-effect">خروج</button>
+                <button type="submit" class="nav-link btn-outline-dark waves-effect mr-3">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
             </form>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">ثبت‌نام</a>
+            <a class="nav-link btn-outline-dark waves-effect" asp-area="" asp-controller="Account" asp-action="Register">
+                <i class="fas fa-user-plus"></i>
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link btn-outline-primary mr-3" asp-area="" asp-controller="Account" asp-action="Login">ورود</a>
+            <a class="nav-link btn-outline-dark waves-effect mr-3" asp-area="" asp-controller="Account" asp-action="Login">
+                <i class="fas fa-sign-in-alt"></i>
+            </a>
         </li>
     }
 </ul>
